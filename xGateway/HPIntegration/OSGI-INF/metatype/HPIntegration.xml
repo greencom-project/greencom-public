@@ -1,0 +1,9 @@
+<metatype:MetaData xmlns:metatype="http://www.osgi.org/xmlns/metatype/v1.0.0">
+	<metatype:OCD id="HPIntegration" name="GreenCom: HeatpumpIntegration configuration">
+		<metatype:AD id="activatestatus" type="Boolean" name="activatestatus"
+			default="false" description="This is not doing anything" />
+	</metatype:OCD>
+	<metatype:Designate pid="HPIntegration" factoryPid="HPIntegration">
+		<metatype:Object ocdref="HPIntegration" />
+	</metatype:Designate>
+</metatype:MetaData>

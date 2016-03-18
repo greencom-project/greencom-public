@@ -1,0 +1,24 @@
+
+0.0.1.v20130529 - MS2
+	Compiled with eclipse PDE
+	Uses the API defined in LocalDataStorageAPI project (TimeSeries, TimeSeriesManager, TimeSeriesConfiguration, SampledValue)
+	Implements locally and uses (package eu.greencom.localdatastorage.timeseries.impl) the API defined in LocalDataStorageAPI
+	
+0.0.2.v20130607 - MS2 branch
+	Uses the API defined in eu.greencom.timeseries.api (LocalDataStorageAPI will be deprecated)
+	Implements locally and uses (package eu.greencom.localdatastorage.timeseries.impl) the API defined in eu.greencom.timeseries.api
+	Moved in branch and tagged as MS2
+	
+0.0.3.v20130625
+	Fixed timeseries API package declaration
+	Changed bundle symbolic name
+	Removed blueprint in favor of ds
+	Last version in the MS02-dev branch
+	
+0.0.4.v20130723
+	Integration in the xGateway component
+		add tycho
+		uses xGatewayAPI (which contain the timeseries api)
+		
+JPU: Maven refused deployment, enforced using same version as 
+parent project: 0.6.0-SNAPSHOT

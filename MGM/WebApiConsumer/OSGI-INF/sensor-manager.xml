@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" deactivate="deactivate" modified="modified" immediate="true" enabled="true" configuration-policy="require" name="eu.greencom.mgm.webapiconsumer">
+   <implementation class="eu.greencom.mgm.webapiconsumer.impl.service.DataWarehouseSensorManager"/>
+   <service>
+      <provide interface="eu.greencom.mgm.webapiconsumer.api.service.SensorManager"/>
+      <provide interface="eu.greencom.mgm.webapiconsumer.api.service.WebApiConsumer"/>
+   </service>   
+</scr:component>

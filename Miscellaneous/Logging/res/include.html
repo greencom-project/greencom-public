@@ -1,0 +1,65 @@
+<script type="text/javascript">
+
+function saveConfiguration(){
+	$.ajax({
+		type: "POST",
+		context: this,
+		url: "/system/console/log-configuration",
+		data: $("#properties").val(),		
+		success: function(data) { 
+			$("#save_button").css("color","#339933");
+			setTimeout(function(){
+				$("#save_button").css("color","");
+			},1000);
+		}		
+	});
+};
+</script>
+
+
+<div id="editor" style="padding-top:2em;">
+	<div style="text-align:left; padding-left:1em" class="ui-widget-header buttonGroup">
+		Log configuration &nbsp;&nbsp;<button id="save_button" onclick="saveConfiguration()" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" type="button">Save</button>			
+	</div>
+    <form id="config_form" name="config_form" action="/system/console/log-configuration" method="POST" enctype="application/x-www-form-urlencoded">      	   
+	 <table id="annotationTable" class="nicetable">
+	 <tbody>
+	  <tr>
+        <td style="padding:1em; width:65em"><textarea id="properties" name="properties" class="ui-corner-all inputText" style="width:60em;height:35em" title="Log4j compliant configuration string">%CONFIG%</textarea></td>      
+      	<td style="padding:1em">
+<pre style="text-align:left;">
+# <b>Example configuration</b>	
+# Select overall log level and destination: CONSOLE (testing), FILE or FILES (production)
+# ALL > TRACE > DEBUG > INFO > WARN > ERROR > FATAL > OFF
+log4j.rootLogger = INFO, FILE
+
+# Enable specific log level for application loggers:
+log4j.logger.eu.linksmart = ERROR
+log4j.logger.eu.greencom = INFO
+log4j.logger.eu.greencom.xgateway = INFO
+log4j.logger.eu.greencom.mgmbroker = INFO
+log4j.logger.eu.greencom.mgm = INFO
+
+# 3rd party loggers
+log4j.logger.org.ops4j.pax = ERROR
+log4j.logger.org.apache.http = ERROR
+log4j.logger.org.eclipse.jetty = ERROR
+
+# OSGi console
+log4j.appender.CONSOLE = org.apache.log4j.ConsoleAppender
+log4j.appender.CONSOLE.layout = org.apache.log4j.PatternLayout
+log4j.appender.CONSOLE.layout.ConversionPattern = %d %-5p (%C#%M:%L) - %m%n
+ 
+# Rotation implemented now via logrotate
+log4j.appender.FILE=org.apache.log4j.FileAppender
+# Requires absolute path
+log4j.appender.FILE.File=/home/pi/greencom/log/rotating.log
+log4j.appender.FILE.layout = org.apache.log4j.PatternLayout
+log4j.appender.FILE.layout.ConversionPattern = %d %-5p (%c) - %m%n
+
+</pre>  			  	
+      </td></tr>
+     </tbody>
+    </table>   
+  	</form>
+ </div>

@@ -1,0 +1,30 @@
+  <metatype:MetaData 
+    xmlns:metatype='http://www.osgi.org/xmlns/metatype/v1.1.0'>
+    <OCD 
+      name='GreenCom: MGMBroker (Manager) configuration' 
+      id='eu.greencom.mgmbroker.gateway' 
+      localization='eu.greencom.mgmbroker.gateway'>
+      <!--  moved to CommandProcessor:
+      <AD 
+        name='Gateway ID' 
+        id='GATEWAY_ID'
+        description="Internal identifier of this gateway/installation as defined by the data warehouse" 
+        cardinality='0' 
+        required='true' 
+        type='String'/>
+      -->
+      <AD 
+        name='MGM JSONRPC server ID'
+        description="Identifier of the JSONRPC-endpoint on the MGM server (shared by all gateways)" 
+        id='MANAGER_ID' 
+        cardinality='0' 
+        required='true' 
+        type='String'/>
+        
+        
+    </OCD>
+    <Designate pid='eu.greencom.mgmbroker.gateway'>
+      <Object ocdref='eu.greencom.mgmbroker.gateway'/>
+    </Designate>
+  </metatype:MetaData>
+

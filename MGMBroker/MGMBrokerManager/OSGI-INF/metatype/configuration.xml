@@ -1,0 +1,57 @@
+  <metatype:MetaData 
+    xmlns:metatype='http://www.osgi.org/xmlns/metatype/v1.1.0'>
+    <OCD 
+      name='GreenCom: SystemHealthMonitor configuration' 
+      id='eu.greencom.mgmbroker.manager.systemhealth' 
+      localization='eu.greencom.mgmbroker.manager.systemhealth'>
+      <AD 
+        name='Recipient address of email notifications' 
+        id='EMAIL_RECEIVER_ADDRESS' 
+        cardinality='0' 
+        required='true' 
+        type='String'/>
+      <AD 
+        name='IDs of gateways and installations' 
+        id='INSTALLATIONS_IDS' 
+        cardinality='0' 
+        required='true' 
+	description="Format: JSON-RPC ID:DWH ID|etc. Example: House01:85f4d922-d876-47cf-bdc2-547924640bb5|House02:e6306a39-5b26-41e4-ae2f-a3df8a92ef18"
+        type='String'/>
+        
+    </OCD>
+    
+    <OCD 
+      name='MGMBroker Manager Command Layer: these configurations will be sent to gateways' 
+      id='eu.greencom.mgmbroker.manager.commandlayer' 
+      localization='eu.greencom.mgmbroker.manager.commandlayer'>
+      <AD 
+        name='Period (in secs) of gateways local db cleaning for synchronized values' 
+        id='CleaningPeriodInSecs' 
+        cardinality='0' 
+        required='true' 
+        type='Integer'/>
+      <AD 
+        name='Period (in secs) of data syncrhonization in gateways' 
+        id='DispatchingPeriodInSecs' 
+        cardinality='0' 
+        required='true' 
+        type='Integer'/>
+        
+	  <AD 
+        name='Host of the GreenCom DataWarehouse' 
+        id='DataWarehouseHost' 
+        cardinality='0' 
+        required='true' 
+        type='String'/>
+        
+    </OCD>
+   
+    <Designate pid='eu.greencom.mgmbroker.manager.commandlayer'>
+      <Object ocdref='eu.greencom.mgmbroker.manager.commandlayer'/>
+    </Designate>
+    <Designate pid='eu.greencom.mgmbroker.manager.systemhealth'>
+      <Object ocdref='eu.greencom.mgmbroker.manager.systemhealth'/>
+    </Designate>
+    
+  </metatype:MetaData>
+

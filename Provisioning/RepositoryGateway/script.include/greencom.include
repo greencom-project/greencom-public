@@ -1,0 +1,169 @@
+#!/bin/bash
+
+BASE_DIR=/home/pi
+GC_HOME="$BASE_DIR/greencom"
+SCRIPT_NAME=`basename "$0" .include`
+
+# Retrieves the PID of the parent process (screen)
+get_ppid() {
+	echo `ps -e -o pid:1,cmd | grep -E "^[0-9]+ SCREEN.*greencom" | cut -f1 -d' '`
+}
+
+test_running() {
+  PID=`get_ppid`  
+  if [ -n "$PID" ]
+  then
+    return 0
+  else
+    return 1
+  fi
+}
+
+# Loads script's settings
+load_settings() {
+	local SETTINGS="$BASE_DIR/.${SCRIPT_NAME}.settings"
+	if [ -f "$SETTINGS" ]
+	then 
+		. "$SETTINGS"
+		echo "Script settings loaded"
+	fi	
+}
+
+status() {  
+  if test_running -eq 0
+  then 
+    echo -e "[\033[32mok\033[0m] GreenCom is running."; return 0
+  else
+    echo -e "[\033[31mFAIL\033[0m] GreenCom is not running!"; return 1
+  fi
+}
+
+stop() {
+	local PID=`get_ppid`
+	if [ -n "$PID" ]
+	then
+		screen -X -S $PID quit
+		if [ "$?" -eq 0 ]
+		then 
+			echo "GreenCom terminated ($PID)"
+		fi
+	else
+		status
+	fi
+}
+
+# Check whether mongodb is running/restart (@rungcom_screen.sh)
+ensure_mongodb_started() {
+	
+	# Assuming service name equals to script name
+	# retrieve the right version, either "mongo" or "mongodb"
+	local MONGO_SERVICE=$(basename `ls /etc/init.d/mongo*`)
+	sudo su pi -c "sudo service ${MONGO_SERVICE} status"
+	if [[ "$?" -eq 1 ]]
+	then
+		# Remove silently the lock at any of the known locations	
+		sudo su pi -c 'sudo rm -rf /opt/mongodb/data/mongod.lock'
+		sudo su pi -c 'sudo rm -rf /var/lib/mongodb/mongod.lock'	
+		sudo su pi -c "sudo service ${MONGO_SERVICE} restart"
+	fi
+}
+
+# Check the health status of the database (RW), assumes a running mongod 
+enusre_database_working() {
+    local MONGO_SERVICE=$(basename `ls /etc/init.d/mongo*`)
+	local MONGO_BIN=`find /opt -type d -path "*/mongo*/bin"`
+	# There will only be one of the paths available, using concat
+	local MONGO_DATA="`find /opt -type d -path "*/mongo*/data" 2> /dev/null``find /var/lib -type d -regex ".*/mongo[db]*" 2> /dev/null`"
+        
+	echo -n "Checking database health ... "
+    
+    # Perform a dummy RW operation on gatewaydb
+    $MONGO_BIN/mongo gatewaydb --quiet --eval 'db.test.insert({test:true}); db.test.remove({test:true})'
+
+    # Catch error, by default repairing the data
+    if [[ "$?" -gt 0 ]]
+    then
+        echo "DB repair enforced!"
+        sudo su pi -c "service ${MONGO_SERVICE} stop"
+        sudo su pi -c "${MONGO_BIN}/mongod --dbpath ${MONGO_DATA} --repair"
+        sudo su pi -c "service ${MONGO_SERVICE} start"
+    else
+    	echo "ok"
+	fi
+}
+
+setup_equinox_bundle() {
+	# Find e.g. "org.eclipse.osgi-3.6.2.jar" or "org.eclipse.osgi_3.9.1.v20130814-1242.jar"
+	# Exclude "org.eclipse.osgi.services-3.2.100.jar"
+	local NAME_PATTERN="org.eclipse.osgi[^.]*"
+	# Intially equinox is in "plugins", move to parent dir, to prevent loading itself
+	local EQUINOX=`find -L "$GC_HOME/plugins" -name "$NAME_PATTERN"`	
+	if [ -n "$EQUINOX" ]
+	then
+		mv -f "$EQUINOX" "$GC_HOME"		
+	else	
+		local EQUINOX=`find -L "$GC_HOME" -name "$NAME_PATTERN"`
+	fi
+	# Return the actual, versioned name
+	echo `basename "$EQUINOX"`
+}
+
+get_bundle_list() {
+	local BUNDLES=""
+	for BUNDLE in `find -L "$GC_HOME/plugins" -maxdepth 1 -name "*.jar"`
+	do 		
+		if [ -n "$BUNDLES" ]; then BUNDLES+=","; fi
+		# Inspect bundle manifest for being a fragment
+		FRAGMENT=`unzip -p  $BUNDLE META-INF/MANIFEST.MF | grep "Fragment-Host:"`
+		# Add only non-fragment bundles
+		if [ -n "$FRAGMENT" ]; then BUNDLES+="$BUNDLE"; else BUNDLES+="$BUNDLE@start"; fi
+	done
+	echo $BUNDLES
+}
+
+
+# Generate Equinox config.ini file
+create_configuration() {
+	# Optionally create config folder
+	DIR="$GC_HOME/bundlecache"
+	FILE="$DIR/config.ini"	
+	echo "Generating configuration"	
+	mkdir -p "$DIR"	
+	cat << TEMPLATE > "$FILE"
+osgi.bundles=$(get_bundle_list)
+osgi.console=true
+osgi.os=linux
+osgi.arch=x86_64
+osgi.debug
+osgi.noShutdown=true
+osgi.bundles.defaultStartLevel=4
+osgi.configuration.cascaded=false
+eclipse.consoleLog=true
+eclipse.exitOnError=true
+eclipse.ignoreApp=true
+equinox.ds.error=true
+equinox.ds.print=true
+org.osgi.service.http.port=8080
+org.osgi.framework.bootdelegation = *
+TEMPLATE
+}
+
+start_runtime() {
+	if [ -n "$1" ]; then local PORT="$1"; fi
+	EQUINOX=`setup_equinox_bundle`				
+	create_configuration
+	echo "Starting $EQUINOX"
+	# Uses separate folders for bundle configuration and cache
+	# Other jars are loaded relative to <user.dir>
+	java -Duser.dir="$GC_HOME" -Dfelix.cm.dir="$GC_HOME/configadmin" -jar "$GC_HOME/$EQUINOX" -configuration "$GC_HOME/bundlecache" -console "$PORT" 
+}
+
+start() {
+	load_settings
+	ensure_mongodb_started
+	enusre_database_working
+	start_runtime
+}
+
+# Invoke local function passing further arguments
+"$@"

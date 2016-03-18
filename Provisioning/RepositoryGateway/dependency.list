@@ -1,0 +1,10 @@
+logrotate
+minicom
+openvpn
+realpath
+screen
+screenie
+sendemail
+socat
+unzip
+python-configobj

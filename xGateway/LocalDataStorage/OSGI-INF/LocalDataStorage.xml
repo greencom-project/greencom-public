@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" enabled="true" immediate="false" name="LocalDataStorage">
+   <implementation class="eu.greencom.localdatastorage.impl.MongoLocalDataStorage"/>
+   <service>
+      <provide interface="eu.greencom.xgateway.localdatastorage.api.service.LocalDataStorage"/>
+   </service>
+   <properties entry="LocalDataStorage.properties"/> 
+</scr:component>

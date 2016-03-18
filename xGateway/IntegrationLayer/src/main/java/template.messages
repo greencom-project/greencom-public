@@ -1,0 +1,42 @@
+# Create session/log-in (gw) 
+request.create.session={"jsonrpc":"2.0","method":"POST","id":"$1","params":{"uri":"gc:GatewaySession","data":{"gc:referenceTime":"$2"}}}
+# Session response (coordinator) 
+response.create.session={"jsonrpc":"2.0","id":"$1","result":{"uri":"$2"}}
+# Delete session (gw)
+request.delete.session={"jsonrpc":"2.0","method":"DELETE","params":{"uri":"$1"}}
+
+# Observation notification (coordinator)
+notification.send.data={"jsonrpc": "2.0","method":"POST","params": {"uri" : "gc:Observation","data":{"gc:externalIdentifier": "$1","gc:observationResultTime": "$2","rdf:value":"$3"}}}
+# Update reference timestamp of particular session (gw)
+notification.update.sessiontime={"jsonrpc":"2.0","method":"PUT","params":{"uri":"$1/gc:referenceTime","data":"$2"}}
+
+# Transducer list request (gw)
+request.transducer.list={"jsonrpc":"2.0","method":"GET","id":"$1","params":{"uri":"gc:Transducer"}}
+# Transducer list response (coordinator)
+response.transducer.list={"jsonrpc": "2.0","id":"$1","result":[{"rdf:type":"gc:CummulativePowerConsumptionSensor","gc:hasUnit":"gc:WattHour","gc:externalIdentifier":"mac:addr"},{"rdf:type":"gc:Switch","gc:externalIdentifier" :"mac:addr1"}]}
+
+#Generic GET request on a URI. URI is composed of deviceId/propertyId 
+request.get.property={"jsonrpc":"2.0","method":"GET","id":"$1","params":{"uri":"$2/$3"}}
+response.get.property={"jsonrpc":"2.0","id":"$1","result":{"data":"$2"}}
+# Generic PUT request on a uri
+request.put.property={"jsonrpc":"2.0","method":"PUT","id":"$1","params":{"uri":"$2/$3","data":"$4"}}
+# Same result as GET: echo the value set
+response.put.property={"jsonrpc":"2.0","id":"$1","result":{"data":"$2"}}
+
+### Error codes - currently not used
+# Send code 301 "Moved Permanently" to indicate success and URI of created session ("gct:id7234")
+response.created={"id":"$1","result":{"code":301","headers":{"Location":"$1"}}}
+# Send code 303 "See Other" to redirect to already existent resource URI
+response.exists={"id":"$1","result":{"code":303","headers":{"Location":"$1"}}}
+# Send server error
+response.error={"id":"$1","result":{"code":500","headers":{"Location":"$1"}}}
+
+#Restart coordinator
+notification.restart={"jsonrpc":"2.0","method":"PUT","params":{"uri":"+++++"}}
+
+###Test templates
+test.template.empty={}
+test.template.singleparam={"param":"$1"}
+test.template.multiparam={"param":"$1","param1":"$2"}
+
+

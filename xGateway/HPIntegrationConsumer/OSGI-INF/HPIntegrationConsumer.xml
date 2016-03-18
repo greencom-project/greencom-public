@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activator" configuration-policy="require" deactivate="deactivate" enabled="true" immediate="true" name="HPIntegrationConsumer">
+   <implementation class="eu.greencom.xgateway.hpintegrationconsumer.HPIntConsumerImpl"/>
+   <reference bind="setConfigurationAdmin" cardinality="1..1" interface="org.osgi.service.cm.ConfigurationAdmin" name="ConfigurationAdmin" policy="dynamic" unbind="removeConfigurationAdmin"/>
+   <reference bind="setEventAdmin" cardinality="1..1" interface="org.osgi.service.event.EventAdmin" name="EventAdmin" policy="dynamic" unbind="removeEventAdmin"/>
+   <reference bind="bindHPintegration" cardinality="1..1" interface="eu.greencom.xgateway.hpintegration.HPIntegrationService" name="HPIntegrationService" policy="static" unbind="unbindHPintegration"/>
+   <property name="readactive" type="Boolean" value="false"/>
+   <property name="readparameter" type="Integer" value="47007"/>
+   <property name="writeparameter" type="Integer" value="47131"/>
+   <property name="readstatus" type="Boolean" value="false"/>
+   <property name="writestatus" type="Boolean" value="false"/>
+   <property name="writevalue" type="Integer" value="0"/>
+   <property name="prestring" type="String" value="NoHouseName"/>
+   <property name="timeupdateperiod" type="Long" value="60000"/>
+</scr:component>

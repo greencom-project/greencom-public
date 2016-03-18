@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>eu.greencom</groupId>
+		<artifactId>parent</artifactId>
+		<version>0.6.0-SNAPSHOT</version>
+	</parent>
+	<groupId>eu.greencom.mgm</groupId>
+	<artifactId>MGM</artifactId>
+	<!-- Unique location for storing version for this component -->	
+	<packaging>pom</packaging>
+	<name>MGM</name>
+	<description>The GreenCom Microgrid Manager component</description>
+	<modules>
+		<module>GridTopology</module>
+		<module>MGMAPI</module>
+		<module>MGMMetaInformationStoreAPI</module>
+		<module>WebApiConsumer</module>
+		<module>ServiceBus</module>
+	</modules>
+
+</project>

@@ -1,0 +1,13 @@
+<metatype:MetaData xmlns:metatype="http://www.osgi.org/xmlns/metatype/v1.0.0">
+	<metatype:OCD id="grid-topology-service" name="Grid topology service">
+		<metatype:AD id="topology.file.remote" type="String" name="Remote topology file"
+			default="http://greencom.fit.fraunhofer.de/gc/furPowerLines.js"
+			description="URL of the remote topology file (optional)" />
+		<metatype:AD id="topology.file.local" type="String" name="Local topology file"
+			default="/furPowerLines.js"
+			required="true" description="File name of the local topology file" />			
+	</metatype:OCD>
+	<metatype:Designate pid="grid-topology-service">
+		<metatype:Object ocdref="grid-topology-service" />
+	</metatype:Designate>
+</metatype:MetaData>

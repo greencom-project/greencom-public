@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" deactivate="deactivate" name="HPWebConsole">
+   <implementation class="eu.greencom.xgateway.hpintegrationconsumer.WebConsolePage"/>
+   <reference bind="bindHPintegration" cardinality="1..1" interface="eu.greencom.xgateway.hpintegration.HPIntegrationService" name="HPIntegrationService" policy="static" unbind="unbindHPintegration"/>
+   <reference bind="setEventAdmin" cardinality="1..1" interface="org.osgi.service.event.EventAdmin" name="EventAdmin" policy="dynamic" unbind="removeEventAdmin"/>
+   <service>
+   		<provide interface="javax.servlet.Servlet"/>
+   </service>
+   <property name="felix.webconsole.label" type="String" value="hp-webconsole"/>
+</scr:component>

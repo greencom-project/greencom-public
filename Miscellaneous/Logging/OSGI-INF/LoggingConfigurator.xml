@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" configuration-policy="optional" deactivate="deactivate" immediate="true" name="LoggingConfigurator">
+   <implementation class="eu.linksmart.logging.impl.LoggingConfiguratorImpl"/>
+   <service>
+      <provide interface="eu.linksmart.logging.LoggingConfigurator"/>
+   </service>
+  <reference bind="setConfigurationAdmin" cardinality="1..1" interface="org.osgi.service.cm.ConfigurationAdmin" name="ConfigurationAdmin" policy="dynamic" unbind="removeConfigurationAdmin"/>
+  <property name="osgi.command.scope" type="String" value="logger"/>
+  <property name="osgi.command.function" type="String" value="set"/>
+</scr:component>

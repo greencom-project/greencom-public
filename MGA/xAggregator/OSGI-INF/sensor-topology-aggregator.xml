@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" configuration-policy="require" deactivate="deactivate" enabled="true" immediate="true" name="sensor-topology-aggregator">
+   <implementation class="eu.greencom.aggregation.service.impl.SensorTopologyAggregator"/>
+   <service>
+      <provide interface="eu.greencom.aggregation.service.api.Aggregator"/>
+   </service>
+   <reference bind="setSensorManager" cardinality="1..1" interface="eu.greencom.mgm.webapiconsumer.api.service.SensorManager" name="SensorManager" policy="dynamic" unbind="removeSensorManager"/>
+   <reference bind="addAggregationSourceResolver" cardinality="1..n" interface="eu.greencom.aggregation.service.api.AggregationSourceResolver" name="AggregationSourceResolver" policy="dynamic" unbind="removeAggregationSourceResolver"/>      
+</scr:component>

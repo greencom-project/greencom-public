@@ -1,0 +1,9 @@
+<metatype:MetaData xmlns:metatype='http://www.osgi.org/xmlns/metatype/v1.1.0'>
+	<metatype:OCD name='GreenCom - DAL websocket configuration' id='DeviceAbstractionLayerWebSocket'>
+		<metatype:AD name='the address of Jemma instance:' id='JemmaAddress'
+			cardinality='0' required='true' type='String' default='192.168.1.1:8080' />
+	</metatype:OCD>
+	<metatype:Designate pid='DeviceAbstractionLayerWebSocket'>
+		<metatype:Object ocdref='DeviceAbstractionLayerWebSocket' />
+	</metatype:Designate>
+</metatype:MetaData>

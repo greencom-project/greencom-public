@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" 
+
+activate="activate" configuration-policy="require" deactivate="deactivate" immediate="true" 
+modified="modified" name="grid-resolver">
+   <implementation class="eu.greencom.aggregation.service.impl.GridResolver"/>
+   <service>
+      <provide interface="eu.greencom.aggregation.service.api.AggregationSourceResolver"/>
+   </service>   
+   <reference bind="setTopologyService" cardinality="1..1" interface="eu.greencom.mgm.gridtopology.service.GridTopologyService" name="GridTopologyService" policy="dynamic" unbind="removeTopologyService"/>
+</scr:component>

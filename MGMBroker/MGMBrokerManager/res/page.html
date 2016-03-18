@@ -1,0 +1,233 @@
+<script type="text/javascript">
+
+//var path="/system/console/system-monitor"
+var path="/jsonp"
+
+
+function solicitateAliveMessage(gatewayId){
+	$.ajax(
+		{
+				url: path,
+				jsonpCallback: "handleAliveMessageResponse",
+				dataType: "jsonp",
+				data:{
+					action: "solicitateAliveMessage",
+					gatewayId: gatewayId
+				}
+		});	
+}
+
+function updateInstallationsList(){
+	$.ajax(
+		{
+				url: path,
+				jsonpCallback: "fillInstallationsListTable",
+				dataType: "jsonp",
+				data:{
+					action: "getInstallations"
+				}
+		});	
+}
+
+function checkInstallationByGateway(gatewayId)
+{
+	$("#installationDetails").hide();
+	$("#dialog-message").dialog('open');
+	$.ajax(
+		{
+			url: path,
+			dataType: "jsonp",
+			data:
+			{
+				action: "checkInstallationByGateway",
+				gatewayId: gatewayId
+			},
+			jsonpCallback:"fillInstallationData"
+		}).then(function(){
+			$("#installationDetails").show();
+			$("#dialog-message").dialog('close');
+		})
+}
+
+function sendReport()
+{
+	$.ajax(
+	{
+		url: path,
+		dataType: "jsonp",
+		data:
+			{
+				action: "sendReport"
+			},
+		jsonpCallback: "reportResult"
+	});	
+	
+}
+
+function handleAliveMessageResponse(data)
+{
+	if(data.error!=null)
+	{
+		alert('Error: '+data.error);	
+	}else{
+		alert("The gateway responded, last alive mesage date: "+new Date(data).toLocaleString());
+	}
+}
+
+function reportResult()
+{
+	alert("Report is being sent by the system");
+}
+
+
+function fillInstallationsListTable(data)
+{
+	var element=$("#installationsList");
+	element.html('');
+	var tableContent='';
+	var rowCounter=0;
+	for (prop in data) {
+		
+	    if (data.hasOwnProperty(prop)) {
+	    	rowCounter++;
+	    	var modulus=rowCounter%2;
+	    	if(modulus == 0)
+	    	{
+	    		tableContent=tableContent+'<tr class="even ui-state-default">';	
+	    	}else{
+	    		tableContent=tableContent+'<tr class="odd ui-state-default">';
+	    	}
+	    	
+	        tableContent+='<td valign="center">'+prop+'</td><td valign="center"><a target="_blank" href="DATA_WAREHOUSE/installations/'+data[prop]+'/Sensors"><u>'+data[prop]+'</u><a></td>';
+	        tableContent+='<td valign="center"><button onclick="javascript:checkInstallationByGateway(\''+prop+'\')">Check sensors status</button>    <button onclick="javascript:solicitateAliveMessage(\''+prop+'\')">Solicitate Alive Message</button></td>';
+	        tableContent+='</tr>';
+	    }
+	}
+	element.html(tableContent);
+}
+
+
+function reloadInstallation(gatewayId)
+{
+	checkInstallationByGateway(gatewayId);
+}
+
+
+function fillInstallationData(data)
+{
+	
+	var element=$("#installationDetails");
+	element.html('');
+	
+	var header='<div class="ui-widget-header buttonGroup" style="text-align:left; padding-left:1em">';
+	var ld;
+	if(data.lastAlive=="none")
+	{
+		ld="<font color=\"red\"> None received yet </font>";
+	}else{
+		ld="<font color=\"blue\"> "+new Date(data.lastAlive).toLocaleString()+" </font>";
+	}
+		
+	header+='Installation <font color=\"blue\"><a target="_blank" href="DATA_WAREHOUSE/installations/'+data.installationId+'/Sensors">'+data.installationId+'</a></font> on gateway <font color=\"blue\">'+data.gatewayId+'</font> status, last alive message from gateway:'+ld;    
+	header+='&nbsp;&nbsp;<button id="reload" onclick="reloadInstallation(\''+data.gatewayId+'\')">Reload (might take some time)</button><br/>';
+	
+	
+	var tableContent='<table id="'+data.gatewayId+'" style="width: 800px" class="nicetable ui-widget installationDetails"><thead><tr><th class="ui-widget-header">Sensor Identifier</th>';
+	tableContent+='<th class="ui-widget-header">Name</th>';
+	tableContent+='<th class="ui-widget-header">type</th>';
+	tableContent+='<th class="ui-widget-header">Timestamp of last value received</th>';
+	tableContent+='<th class="ui-widget-header">Edit</th>';
+	tableContent+='</tr></thead><tbody>';
+	var rowCounter=0;
+	var errCounter=0;
+	for (var i=0;i<data.sensors.length;i++) {
+		var prop=data.sensors[i];	
+		//console.debug(prop);
+		rowCounter++;
+    	if(rowCounter%2 == 0)
+    	{
+    		tableContent+='<tr class="even ui-state-default">'
+    	}else{
+    		tableContent+='<tr class="odd ui-state-default">';
+    	}
+    	tableContent+='<td><a target="_blank" href="DATA_WAREHOUSE/Sensors/'+prop.Id+'" title="Click to check historical data"><u>'+prop.Id+'</u></a></td>';
+    	tableContent+='<td>'+prop.Name+'</td>';
+    	tableContent+='<td>'+prop.Type+'</td>';
+    	tableContent+='<td>';
+    	if(new Date().getTime()-new Date(prop.LastDateValue)>1000*60*60)
+    	{
+    		//data is older than 1 hour
+    		tableContent+='<font color="red">'+new Date(prop.LastDateValue).toLocaleString()+'</font>';
+    		errCounter++;
+    	}else{
+    		tableContent+=new Date(prop.LastDateValue).toLocaleString();	
+    	}
+    	
+    	tableContent+='</td>';
+    	tableContent+='<td><a target="_blank" href="DATA_WAREHOUSE/installations/'+data.installationId+'/Sensors/'+prop.Id+'/Details" title="Click to check historical data"><u>edit</u></a></td>';
+    	tableContent+='</tr>';
+	    
+	}
+	
+	tableContent+='</tbody></table>';
+
+	if(errCounter==0)
+	{
+		header+="No error found"
+	}else{
+		header+='Found errors on <i>'+errCounter+'</i> out of <i>'+data.sensors.length+'</i> sensors';
+	}
+	
+	header+="</div>";
+	
+	element.html(header+tableContent);
+	
+	
+}
+
+
+$(document).ready(function(){
+	  updateInstallationsList();  
+	  $("#dialog-message").dialog({
+		  resizable: false,
+		  dialogClass: "no-close",
+		  autoOpen: false,
+		  draggable: false,
+		  width: 100,
+		  modal: true,
+		  closeOnEscape: false,
+		  open: function (event, ui) { 
+			  //$(".ui-dialog-titlebar-close", ui.dialog).css('display', 'none'); 
+			  $(".ui-dialog-titlebar-close", ui.dialog).remove();
+			  } 
+		  
+	  });
+});
+
+</script>
+
+<p class="statline ui-state-highlight">System Health Status</p>
+
+<div class="ui-widget-header buttonGroup" style="text-align:left; padding-left:1em">	
+	Current System Status    
+	&nbsp;&nbsp;<button id="reload" onclick="updateInstallationsList()">Reload list</button>
+	&nbsp;&nbsp;<button id="sendReport" onclick="sendReport()">Send report by email</button>
+</div>
+
+<div id="installationsListDiv">
+	<table style="width: 800px" class="nicetable">
+		<thead>
+			<th>Gateway Identifier</th>
+			<th>Installation identifier</th>
+			<th>Actions</th>
+		</thead>
+		<tbody id="installationsList">
+			
+		</tbody>
+	</table>
+</div>
+<div id="installationDetails"></div>
+<div id="dialog-message" title="This operation may take a few seconds" style="display:none;">
+	<img align="middle" src="system-monitor/ajax-loader.gif">
+</div>
+

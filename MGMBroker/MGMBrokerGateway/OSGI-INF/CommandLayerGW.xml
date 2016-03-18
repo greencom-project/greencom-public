@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="CommandLayerGW">
+   <implementation class="eu.greencom.mgmbroker.gateway.impl.CommandLayerGW"/>
+   <reference bind="bindJsonRpcClientFactory" cardinality="1..1" interface="eu.linksmart.network.jsonrpc.api.JsonRpcClientFactory" name="JsonRpcClientFactory" policy="dynamic" unbind="unbindJsonRpcClientFactory"/>
+   <reference bind="bindCommunicationLayerService" cardinality="1..1" interface="eu.greencom.mgmbroker.gateway.CommunicationLayerService" name="CommunicationLayerService" policy="dynamic" unbind="unbindCommunicationLayerService"/>
+   <reference bind="bindConfigurationAdmin" cardinality="1..1" interface="org.osgi.service.cm.ConfigurationAdmin" name="ConfigurationAdmin" policy="dynamic" unbind="unbindConfigurationAdmin"/>
+</scr:component>

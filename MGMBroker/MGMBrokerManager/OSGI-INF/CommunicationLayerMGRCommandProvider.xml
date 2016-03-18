@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="CommunicationLayerMGRCommandProvider">
+   <implementation class="eu.greencom.mgmbroker.manager.impl.CommunicationLayerCommandProvider"/>
+   <reference bind="bindCommunicationLayerMGR" cardinality="1..1" interface="eu.greencom.mgmbroker.manager.api.CommunicationLayerMGR" name="CommunicationLayerMGR" policy="dynamic" unbind="unbindCommunicationLayerMGR"/>
+   <service>
+      <provide interface="org.eclipse.osgi.framework.console.CommandProvider"/>
+   </service>
+</scr:component>

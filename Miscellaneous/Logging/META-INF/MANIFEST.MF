@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: LinkSmart logging bundle
+Bundle-SymbolicName: eu.linksmart.logging
+Bundle-Version: 1.0.4
+Import-Package: javax.servlet,
+ javax.servlet.http,
+ org.apache.commons.io;version="1.4.0",
+ org.apache.commons.logging,
+ org.apache.felix.webconsole,
+ org.apache.log4j,
+ org.osgi.framework,
+ org.osgi.service.cm,
+ org.osgi.service.component,
+ org.slf4j
+Service-Component: OSGI-INF/*.xml
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: eu.linksmart.logging
+

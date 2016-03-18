@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="CommunicationLayerMGR">
+   <implementation class="eu.greencom.mgmbroker.manager.impl.CommunicationLayerMGRImpl"/>
+   <service>
+      <provide interface="eu.greencom.mgmbroker.manager.api.CommunicationLayerMGR"/>
+   </service>
+   <reference bind="bindJsonRpcClientFactory" cardinality="1..1" interface="eu.linksmart.network.jsonrpc.api.JsonRpcClientFactory" name="JsonRpcClientFactory" policy="dynamic" unbind="unbindJsonRpcClientFactory"/>
+</scr:component>

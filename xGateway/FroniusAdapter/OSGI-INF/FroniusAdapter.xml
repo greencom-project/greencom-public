@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" 
+	name="FroniusAdapter"
+	activate="activate" 	
+	deactivate="deactivate"
+	modified="modified" 
+	immediate="true" 
+	configuration-policy="require">
+   <implementation class="eu.greencom.xgateway.fronius.FroniusAdapter"/> 
+  <reference bind="setEventAdmin" cardinality="1..1" interface="org.osgi.service.event.EventAdmin" name="EventAdmin" policy="dynamic" unbind="removeEventAdmin"/>
+  <reference bind="setSensorManager" cardinality="1..1" interface="eu.greencom.mgm.webapiconsumer.api.service.SensorManager" name="SensorManager" policy="dynamic" unbind="removeSensorManager"/>
+</scr:component>

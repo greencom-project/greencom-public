@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: LinkSmart logging bundle fragment
+Bundle-SymbolicName: eu.linksmart.logging.fragment
+Bundle-Version: 1.0.4
+Fragment-Host: eu.linksmart.logging
+

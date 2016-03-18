@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="CommandProcessor">
+   <implementation class="eu.greencom.xgateway.commandprocessor.CommandProcessor"/>
+   <reference bind="bindConfigurationAdmin" unbind="unbindConfigurationAdmin" cardinality="1..1" interface="org.osgi.service.cm.ConfigurationAdmin" name="ConfigurationAdmin" policy="static"/>
+   <reference bind="bindWebApiConsumer" unbind="unbindWebApiConsumer" cardinality="1..1" interface="eu.greencom.mgm.webapiconsumer.api.service.WebApiConsumer" name="WebApiConsumer" policy="static"/>
+   <reference bind="bindServiceBus" unbind="unbindServiceBus" cardinality="1..1" interface="eu.greencom.mgm.servicebus.api.service.ServiceBus" name="ServiceBus" policy="static"/>
+   <reference bind="bindDeviceController" cardinality="1..1" interface="eu.greencom.xgateway.integrationlayer.api.service.DeviceController" name="DeviceController" policy="static"/>
+   <reference bind="bindHPintegration" cardinality="1..1" interface="eu.greencom.xgateway.hpintegration.HPIntegrationService" name="HPIntegrationService" policy="static" unbind="unbindHPintegration"/>
+</scr:component>

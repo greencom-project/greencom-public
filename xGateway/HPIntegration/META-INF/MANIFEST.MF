@@ -1,0 +1,47 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: HPIntegration
+Bundle-SymbolicName: HPIntegration
+Bundle-Version: 0.6.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Service-Component: OSGI-INF/HPIntegration.xml
+Import-Package: eu.greencom.xgateway.integrationlayer.api.service,
+ net.wimpi.modbus,
+ net.wimpi.modbus.cmd,
+ net.wimpi.modbus.facade,
+ net.wimpi.modbus.io,
+ net.wimpi.modbus.msg,
+ net.wimpi.modbus.net,
+ net.wimpi.modbus.procimg,
+ net.wimpi.modbus.util,
+ org.apache.commons.collections;version="3.2.1",
+ org.apache.commons.collections.buffer;version="3.2.1",
+ org.apache.log4j;version="1.2.15",
+ org.apache.log4j.spi;version="1.2.15",
+ org.osgi.framework;version="1.8.0",
+ org.osgi.service.cm;version="1.4.0",
+ org.osgi.service.component;version="1.2.2",
+ org.osgi.service.event
+Export-Package: eu.greencom.xgateway.hpintegration,
+ net.wimpi.modbus,
+ net.wimpi.modbus.cmd,
+ net.wimpi.modbus.facade,
+ net.wimpi.modbus.io,
+ net.wimpi.modbus.msg,
+ net.wimpi.modbus.net,
+ net.wimpi.modbus.procimg,
+ net.wimpi.modbus.util
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: lib/RXTXcomm.jar,
+ .,
+ lib/jamod.jar
+Bundle-NativeCode: lib/Win/32/rxtxSerial.dll; osname=Win32; processor=
+ x86,lib/Win/64/rxtxSerial.dll; osname=Win7; processor=x86_64, lib/lib
+ rxtxSerial.jnilib; osname=macosx; processor=ppc, lib/librxtxSerial.jn
+ ilib; osname="Mac OS X"; processor=x86, lib/librxtxSerial.jnilib; osn
+ ame="macosx"; processor=x86_64, lib/Linux/i686-unknown-linux-gnu/libr
+ xtxParallel.so; lib/Linux/i686-unknown-linux-gnu/librxtxSerial.so; os
+ name=Linux; processor=x86, lib/Linux/ia64-unknown-linux-gnu/librxtxSe
+ rial.so; osname=Linux; processor=ia64, lib/Linux/x86_64-unknown-linux
+ -gnu/librxtxSerial.so; osname=Linux; processor=x86-64, lib/Linux/arm/
+ librxtxSerial.so; osname=Linux; processor=arm

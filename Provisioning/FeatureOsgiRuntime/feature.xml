@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="FeatureOsgiRuntime"
+      label="FeatureOsgiRuntime"
+      version="0.6.0.qualifier">
+
+   <description>
+      Common set of Equinox-based OSGi bundles: Declarative services, HttpService, EventAdmin, ConfigurationManager, WebConsole and plug-ins
+   </description>
+   
+  <!-- 
+  <plugin id="javax.servlet-api" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  -->
+  <plugin id="javax.servlet" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="javax.servlet.jsp" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="org.apache.felix.gogo.command" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="org.apache.felix.gogo.runtime" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="org.apache.felix.gogo.shell" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="org.apache.felix.webconsole" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="org.apache.felix.webconsole.plugins.ds" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="org.apache.felix.webconsole.plugins.event" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <!-- Replaced by the more configurable Apache Felix plugin
+  <plugin id="org.eclipse.equinox.cm" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+   -->
+  <plugin id="org.apache.felix.configadmin" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="org.eclipse.equinox.console" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="org.eclipse.equinox.ds" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="org.eclipse.equinox.event" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="org.eclipse.equinox.http.jetty" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="org.eclipse.equinox.http.servlet" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="org.eclipse.equinox.metatype" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="org.eclipse.equinox.util" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="org.eclipse.jetty.continuation" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="org.eclipse.jetty.http" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="org.eclipse.jetty.io" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="org.eclipse.jetty.security" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="org.eclipse.jetty.server" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="org.eclipse.jetty.servlet" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="org.eclipse.jetty.util" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="org.eclipse.osgi" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+  <plugin id="org.eclipse.osgi.services" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+</feature>

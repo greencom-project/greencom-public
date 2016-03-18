@@ -1,0 +1,51 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          greencom
+# Required-Start:    $networking mongodb
+# Required-Stop:     $networking mongodb
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: GreenCom service script
+# Description:       This script will start/stop the GreenCom gateway software
+### END INIT INFO
+# Adopted from: http://askubuntu.com/a/224402
+
+# Sourcing profile properties, which are normally ignored by init scripts (http://unix.stackexchange.com/questions/44370/how-to-make-unix-service-see-environment-variables)
+# First check whether no alternative path was supplied by user  
+if [ -z "$GC_HOME" ] && [ -f /etc/profile ]; then . /etc/profile > /dev/null; fi
+
+# Require $GC_HOME to be set
+if [ ! -d "$GC_HOME" ]; then echo '$GC_HOME' is not a directory, exiting!; exit 1; fi
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin:$GC_HOME/script.include
+
+start() {	
+	if ! greencom.include test_running
+	then
+		echo "Starting GreenCom in separate screen (greencom)"		
+		CMD="screen -S greencom -d -m bash -c '$GC_HOME/script.include/greencom.include start'"
+		sudo su pi -c "$CMD"			
+	fi
+	echo `status`
+}
+
+stop() {
+	if greencom.include test_running
+	then
+		echo "Stopping GreenCom"
+		greencom.include stop	
+	fi		
+}
+
+status() {	
+	greencom.include status
+}
+
+case $1 in
+  start|stop|status)
+  	$1;;
+  restart) 
+  	stop; start;;  
+  *) echo "Run as $0 <start|stop|restart|status>"; exit 1;;
+esac 
+

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" 
+	configuration-policy="require" 
+	immediate="true"
+	activate="activate"
+	deactivate="deactivate" 
+	name="sensor-sum-aggregator">
+   <implementation class="eu.greencom.aggregation.service.impl.SensorSumAggregator"/>
+   <service>
+      <provide interface="eu.greencom.aggregation.service.api.Aggregator"/>
+   </service>
+   <reference bind="setSensorManager" cardinality="1..1" interface="eu.greencom.mgm.webapiconsumer.api.service.SensorManager" name="SensorManager" policy="dynamic" unbind="removeSensorManager"/>      
+</scr:component>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MetaData xmlns="http://www.osgi.org/xmlns/metatype/v1.0.0">
+	<OCD id="sensor-topology-aggregator" name="Sensor topology aggregator">
+	
+		<AD id="aggregation.id" type="String" name="Identifier:"
+			description="Unique aggregation ID" required="true"/>		
+<!-- 				
+		<AD id="aggregation.source_provider" type="String" name="Component name of the AggregationSourceProvider service:"
+			description="Component name of the AggregationSourceProvider service" required="true"/>
+-->
+				
+		<AD id="aggregation.keys" 
+			type="String" 
+			name="Power system resources:"
+			description="List of monitored resources (microgrids)" 			
+			default="20082,20165,20291"
+			required="true"
+			/>	
+		
+		<AD id="aggregation.samplingperiod" type="String" name="Sampling period:"
+			description="Sampling period of the source (ISO-8601 period expression)"
+			default="PT15S" required="true"/>
+		
+		<AD id="aggregation.period" type="String" name="Aggregation period:"
+			description="Aggregation period of the target (ISO-8601 period expression)"
+			default="PT15M" required="true" />		
+	</OCD>
+	<Designate pid="sensor-topology-aggregator" factoryPid="sensor-topology-aggregator">
+		<Object ocdref="sensor-topology-aggregator" />
+	</Designate>
+</MetaData>

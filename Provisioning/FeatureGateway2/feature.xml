@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="FeatureGateway2"
+      label="FeatureGateway2"
+      version="0.6.0.qualifier">
+
+   <description url="http://www.example.com/description">
+      GreenCom gatway installation.
+   </description>
+
+   <includes
+         id="FeatureOsgiRuntime"
+         version="0.0.0"/>
+         
+   <includes
+         id="FeatureLinksmart"
+         version="0.0.0"/>
+
+   <requires>
+      <import plugin="com.fasterxml.jackson.core.jackson-core"/>
+      <import plugin="com.fasterxml.jackson.core.jackson-databind"/>
+      <import plugin="joda-time"/>
+      <import plugin="com.fasterxml.jackson.core.jackson-annotations"/>
+      <import plugin="org.mongodb.mongo-java-driver"/>
+      <import plugin="com.springsource.org.junit"/>
+      <import plugin="org.mockito.mockito-all"/>
+      <import plugin="com.springsource.org.junit" version="4.10.0" match="greaterOrEqual"/>
+      <import plugin="com.eclipsesource.jaxrs.jersey-all"/>
+      <import plugin="com.springsource.org.apache.commons.collections"/>      
+      <import plugin="com.fasterxml.jackson.datatype.jackson-datatype-joda"/>
+      <import plugin="org.apache.httpcomponents.httpcore"/>
+      <import plugin="org.apache.httpcomponents.httpclient"/>
+      <import plugin="org.apache.commons.io"/>      
+      <import plugin="com.google.gson"/>
+      <import plugin="org.ops4j.pax.logging.pax-logging-api" />         
+   	  <import plugin="org.ops4j.pax.logging.pax-logging-service"/>
+   	  <import plugin="org.apache.felix.fileinstall"/>   
+   	  <import plugin="com.eclipsesource.jaxrs.publisher"/>	  
+   	  <import plugin="net.luminis.cmc"/>
+   	  <import plugin="com.jayway.jsonpath.json-path"/> 
+   	  <import plugin="net.minidev.json-smart"/>
+   	  <import plugin="org.apache.commons.exec"/>
+   	  <!-- DAL dependencies -->
+   	  <import plugin="org.eclipse.jetty.websocket.common"/>
+   	  <import plugin="org.eclipse.jetty.websocket.client"/>
+   	  <import plugin="org.eclipse.jetty.websocket.api" />
+   </requires>
+   
+   <plugin
+         id="DeviceAbstractionLayer"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="xGatewayAPI"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="MGMBrokerAPI"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="MGMAPI"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="LocalDataStorage"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="IntegrationLayer"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="ConfigurationBroker"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="MGMBrokerGateway"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="GWDataBroker"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="Dispatcher"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="MGMMetaInformationStoreAPI"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.linksmart.logging"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.linksmart.logging.fragment"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+  <plugin
+         id="WebApiConsumer"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="ServiceBus"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>         
+         
+       <plugin
+         id="CommandProcessor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>         
+         
+       <plugin
+         id="FroniusAdapter"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>    
+         
+      <plugin
+         id="HPIntegration"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+      <plugin
+         id="HPIntegrationConsumer"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

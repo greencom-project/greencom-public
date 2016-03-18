@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="SystemHelathWebConsole">
+   <implementation class="eu.greencom.mgmbroker.manager.impl.SystemHealthWebConsolePlugin"/>
+   <property name="felix.webconsole.label" type="String" value="system-monitor"/>
+   <service>
+      <provide interface="javax.servlet.Servlet"/>
+   </service>
+   <reference bind="bindInstallationsChecker" cardinality="1..1" interface="eu.greencom.mgmbroker.manager.api.InstallationsChecker" name="InstallationsChecker" policy="dynamic" unbind="unbindInstallationsChecker"/>
+   <reference cardinality="1..1" interface="eu.greencom.mgmbroker.manager.api.SystemHealthMonitor" name="SystemHealthMonitor" policy="dynamic" bind="bindSystemHealthMonitor" unbind="unbindSystemHealthMonitor"/>
+   <reference bind="bindCommunicationLayerMGR" cardinality="1..1" interface="eu.greencom.mgmbroker.manager.api.CommunicationLayerMGR" name="CommunicationLayerMGR" policy="dynamic" unbind="unbindCommunicationLayerMGR"/>
+   <reference bind="bindHttpService" cardinality="1..1" interface="org.osgi.service.http.HttpService" name="HttpService" policy="dynamic" unbind="unbindHttpService"/>
+</scr:component>

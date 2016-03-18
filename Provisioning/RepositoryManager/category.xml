@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+	<feature url="features/FeatureManager_0.6.0.qualifier.jar" id="FeatureManager"
+		version="0.6.0.qualifier">
+		<category name="manager" />
+	</feature>
+	<category-def name="manager" label="manager" />
+</site>

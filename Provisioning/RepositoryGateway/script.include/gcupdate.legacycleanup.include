@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Clean-up script to be run once on a gateway in preparation of the gcupdate
+# See: https://confluence.fit.fraunhofer.de/confluence/display/GCOM/GreenCom+software+deplyoment
+
+# Remove obsolate files
+rm -f /etc/cron.d/ovpn_keepalive
+rm -f /usr/local/bin/KeepAlive.sh
+
+# Remove entries from /etc/crontab
+# */5 *   * * *   root    /usr/local/bin/KeepAlive.sh
+# */3 *   * * *   root    /home/pi/scripts/py-post-alive/post-alive.sh
+# */30 *  * * *   root    /home/pi/scripts/check_disk_space.sh
+cat /etc/crontab | grep -vi KeepAlive | grep -vi post-alive | grep -vi check_disk_space > /tmp/crontab; mv /tmp/crontab /etc/crontab 
+
+# Remove entry from /etc/rc.local
+# bash /home/pi/RepositoryGateway-0.1.0-SNAPSHOT/rungcom_screen.sh
+cat /etc/rc.local | grep -vi rungcom  > /tmp/rc.local; mv /tmp/rc.local /etc/rc.local
+
+# Remove old log configuraton to allow new config applied
+#for CONFIG in `find . -path "*configadmin/org/ops4j/pax/logging.config"`; do echo "Removing $CONFIG"; mv $CONFIG ${CONFIG}.old;  done
+
+
+
+

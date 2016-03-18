@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" configuration-policy="optional" deactivate="deactivate" immediate="true" name="LoggingConfiguratorDisplay">
+   <implementation class="eu.linksmart.logging.impl.LoggingConfiguratorDisplay"/>
+   <reference bind="setLoggingConfigurator" cardinality="1..1" interface="eu.linksmart.logging.LoggingConfigurator" name="LoggingConfigurator" policy="dynamic" unbind="removeLoggingConfigurator"/>
+  <property name="felix.webconsole.label" type="String" value="log-configuration"/>
+  <property name="felix.webconsole.title" type="String" value="Log Configuration"/>
+  <!-- title like "Log Service" -->
+  <property name="felix.webconsole.category" type="String" value="OSGi"/>
+  <service>
+     <provide interface="javax.servlet.Servlet"/>
+  </service>
+</scr:component>

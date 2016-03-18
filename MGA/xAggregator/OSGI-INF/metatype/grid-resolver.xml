@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MetaData xmlns="http://www.osgi.org/xmlns/metatype/v1.0.0">
+	<OCD id="grid-resolver" name="Grid source resolver">
+	
+	<!-- 
+		<AD id="aggregation.source_resolver" type="String" name="Unique name of this provider:"
+			description="Unique name of this resolver" required="true"/>
+			-->
+		<!-- 
+		<AD id="house_gateway_mapping" 
+			type="String" 
+			name="House2Gateway mapping:"
+			description="Mapping of house names to gateway IDs" 						
+			/>
+			-->		
+			
+			<AD id="aggregation.target_prefix" type="String" name="Target prefix:"
+			description="Prefix used to build name of the aggregation target (sensor name) for this service" 
+			default="GRID_CONSUMPTION"
+			required="true"/>
+			
+			<AD id="house_meter_mapping" 
+			type="String" 
+			name="Sensor mapping:"
+			description="Mapping of house names (used by the topology service) to IDs of smart meters (consumption or generation sensors), example: House01:2F15BC001B020E48|House02:2F15BC001B020154"
+			default="House01:2F15BC001B020E48|House02:2F15BC001B020154|House03:2F15BC001B020245|House04:2F15BC001B020169|House05:2F15BC001B020AF3|House06:2F15BC001B020F71|House07:2F15BC001B02016D|House08:2F15BC001B02122A|House09:2F15BC001B0218B4|House10:2F15BC001B0218FE|House11:2F15BC001B0218B9|House12:2F15BC001B021805|House13:2F15BC001B021386|House14:2F15BC001B0211CE|House16:2F15BC001B02184B|House17:2F15BC001B021278|House18:2F15BC001B0218BD|House19:2F15BC001B0218F3|House20:2F15BC001B0218C4|House22:2F15BC001B021884" 					
+			/>
+			<!--  Default ~ consumption --> 			
+	</OCD>
+	<Designate pid="grid-resolver" factoryPid="grid-resolver">
+		<Object ocdref="grid-resolver" />
+	</Designate>
+</MetaData>

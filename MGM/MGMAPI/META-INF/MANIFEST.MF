@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: MGMAPI
+Bundle-SymbolicName: MGMAPI;singleton:=true
+Bundle-Version: 0.6.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.osgi.framework,
+ org.joda.time;version="2.2.0"
+Export-Package: eu.greencom.api.domain,
+ eu.greencom.api.service,
+ eu.greencom.mgm.MGMDataWarehouse.api.domain,
+ eu.greencom.mgm.MGMDataWarehouse.api.service,
+ eu.greencom.mgm.flexibilityaggregator.api.domain,
+ eu.greencom.mgm.flexibilityaggregator.api.service,
+ eu.greencom.mgm.gridtopology.service
+Require-Bundle: org.eclipse.equinox.ds

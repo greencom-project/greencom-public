@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" deactivate="deactivate" modified="modified" immediate="true" enabled="true" configuration-policy="require" name="eu.greencom.mgmbroker.gateway.commandlayer.dispatcher">
+   <implementation class="eu.greencom.xgateway.dispatcher.impl.service.DispatcherImpl"/>
+   <reference bind="bindTimeSeriesManager" cardinality="1..1" interface="eu.greencom.api.service.TimeSeriesManager" name="TimeSeriesManager" policy="dynamic" unbind="unbindTimeSeriesManager"/>   
+   <reference bind="bindWebApiConsumer" cardinality="1..1" interface="eu.greencom.mgm.webapiconsumer.api.service.WebApiConsumer" name="WebApiConsumer" policy="dynamic" unbind="unbindWebApiConsumer"/>
+   <!-- <reference bind="bindEventAdmin" cardinality="1..1" interface="org.osgi.service.event.EventAdmin" name="EventAdmin" policy="dynamic" unbind="unbindEventAdmin"/> -->
+</scr:component>

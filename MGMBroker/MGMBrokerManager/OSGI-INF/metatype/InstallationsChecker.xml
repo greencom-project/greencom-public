@@ -1,0 +1,31 @@
+
+<metatype:MetaData xmlns:metatype='http://www.osgi.org/xmlns/metatype/v1.1.0'>
+	<OCD name='GreenCom: InstallationsChecker configuration' id='InstallationsChecker'>
+
+		<AD name='URL of the GreenCom Pilot tracker' id='PILOT_TRACKER'
+			required='true' type='String' description="GreenCom Pilot tracker" />
+
+		<AD name='URL of the GreenCom Data warehouse' id='DATA_WAREHOUSE'
+			required='true' type='String'
+			description="The URL is embedded into service's HTML-formatted email notification" />
+
+		<AD name='SMTP server' id='SMTP_SERVER' required='true'
+			description="SMTP Server used to send the notifications" type='String' />
+
+		<AD name='SMTP server port' id='SMTP_SERVER_PORT' required='true'
+			description="SMTP Server port" type='String' />
+
+		<AD name='SMTP user' id='SMTP_USER' required='true' description="SMTP user"
+			type='String' />
+
+		<AD name='SMTP password' id='SMTP_PASSWORD' required='true'
+			description="SMTP password" type='String' />
+	</OCD>
+
+
+	<Designate pid='InstallationsChecker'>
+		<Object ocdref='InstallationsChecker' />
+	</Designate>
+
+</metatype:MetaData>
+

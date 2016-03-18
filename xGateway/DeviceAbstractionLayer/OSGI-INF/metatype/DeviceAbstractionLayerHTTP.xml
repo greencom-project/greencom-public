@@ -1,0 +1,14 @@
+<metatype:MetaData xmlns:metatype='http://www.osgi.org/xmlns/metatype/v1.1.0'>
+	<metatype:OCD name='Greencom - DAL HTTP Configuration' id='DeviceAbstractionLayerHTTP'>
+		<metatype:AD name='Period between two function invokation times' id='FunctionPeriodCall'
+			cardinality='0' required='true' type='Integer' default='20'/>
+		<metatype:AD name='Period between two device table making' id='DevicePeriodCall'
+			cardinality='0' required='true' type='Integer' default='300'/>
+		<metatype:AD name='Jemma host' id='JemmaAddress' cardinality='0'
+			required='true' type='String' default='192.168.1.1:8080'/>
+	</metatype:OCD>
+	<metatype:Designate
+		pid='DeviceAbstractionLayerHTTP'>
+		<metatype:Object ocdref='DeviceAbstractionLayerHTTP' />
+	</metatype:Designate>
+</metatype:MetaData>

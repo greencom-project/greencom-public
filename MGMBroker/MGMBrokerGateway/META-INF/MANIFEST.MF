@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: MGMBrokerGateway
+Bundle-SymbolicName: MGMBrokerGateway
+Bundle-Version: 0.6.0.qualifier
+Import-Package: com.fasterxml.jackson.core;version="2.2.0",
+ com.fasterxml.jackson.core.type;version="2.2.0",
+ com.fasterxml.jackson.databind,
+ com.fasterxml.jackson.datatype.joda;version="2.2.2",
+ eu.greencom.mgmbroker.commandlayer,
+ eu.linksmart.network,
+ eu.linksmart.network.backbone.data,
+ eu.linksmart.network.jsonrpc.api,
+ eu.linksmart.network.jsonrpc.exception,
+ eu.linksmart.network.jsonrpc.utils,
+ eu.linksmart.utils,
+ org.apache.log4j;version="1.2.15",
+ org.eclipse.osgi.framework.console;version="1.1.0",
+ org.joda.time;version="2.2.0",
+ org.osgi.framework;version="1.5.0",
+ org.osgi.service.cm;version="1.4.0",
+ org.osgi.service.component,
+ org.osgi.service.event
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Service-Component: OSGI-INF/CommandProvider.xml, OSGI-INF/CommunicationLayerGW.xml,OSGI-INF/CommandLayerGW.xml

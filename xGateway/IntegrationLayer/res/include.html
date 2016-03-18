@@ -1,0 +1,239 @@
+<script type="text/javascript">
+   // Observations
+  top.o = {};
+  // Devices
+  top.d = {};
+ 
+ $(document).ready(function(){
+  // Required for observation formatting  
+  updateDeviceList();  
+ });
+
+
+// Switch button, in sense of (and via) PUT 
+ function switchButton(uri, state){
+  var value = top.o[uri+"_value"];
+  // If value entry exists
+  if(!top.o[uri+"_value"]){
+  	top.o[uri+"_value"] = {"rdf:value":[{"value":state}]};
+  }else{
+  	top.o[uri+"_value"]["rdf:value"] = [{"value":state}];
+  }  
+  
+ // TODO: generate request ID, use web sockets for update
+ var requestId = "req1"; 
+ $.ajax({
+    url: '/system/console/serial-webconsole',
+    type: 'PUT',
+    dataType: 'json',    
+    data: JSON.stringify({"jsonrpc": "2.0","method": "PUT","id": requestId,"params": {"uri": uri.substring(5)+"/rdf:value","data": state+".0"}}),
+    success: function(data, status, jqXHR){
+      //alert("OK:"+status);
+      observeResponse(requestId)
+    },
+    error: function(jqXHR, status, errorThrown){
+    	alert("ERROR:"+status);
+    }
+ });
+}
+
+var timer;
+function observeResponse(requestId){
+		timer = setInterval(
+		function(){
+	  		$.get('/system/console/serial-webconsole?response&id='+requestId, 
+	  			function(msg) { 
+	  				//"jsonrpc":"2.0","id":"req1","result":{"data":"1.0"}}
+	  				var res = msg;
+	  				// Clean up and parse, if default parsing failed
+	  				if(typeof msg == "string"){
+	  					// Remove WS junk
+	  					var msg  = msg.replace(/\u0000/g,"");
+	  					// Parse, since default parsing failed
+	  					res = JSON.parse(msg.replace(/\u0000/g,""));
+	  				}	  				
+	  				if(res["result"]){
+	  					console.log(res["result"]["data"]);
+	  					formatObservations();
+	  					clearInterval(timer);	  					
+	  				};
+	  			},
+	  			// Must be, sets the correct Accept header
+	  			"json");  
+	 	},500);	
+}
+ 
+ // requests update of device list on IL
+ function requestDeviceList(){
+  $.post('/system/console/serial-webconsole?requestDeviceData', 
+  function(data) { 
+  	updateDeviceList();
+   });  
+ }
+
+ // Retrieves device list from IL
+ function updateDeviceList(){
+  $.get('/system/console/serial-webconsole?deviceList', 
+  function(data) { 
+  	top.d = data;
+  	updateObservationList();
+  	updateDeviceCount();
+   },'json');  
+ }
+ 
+ // Retrieves observation list from IL
+ function updateObservationList(){
+  $.get('/system/console/serial-webconsole?observationList', 
+  function(data) { 
+  	top.o = data;
+  	formatObservations();
+  },'json');
+ }
+ 
+  function closeSensorEditor(){
+    $("#editor").hide();
+  }
+  
+  function saveSensorData(){
+   	var query= "uri="+$("#rdf_about").text()+"&label="+$("#rdfs_label").val()+"&comment="+$("#rdfs_comment").val();	   	
+   	$.post("/system/console/serial-webconsole?"+query, 
+	  function(data) {
+	  	closeSensorEditor();
+	  	updateDeviceList();
+	 },'json');	
+  }
+ 
+function editSensorData(uri){
+	var dev = top.d[uri];
+	$("#rdf_about").text(uri);
+	$("#rdf_type").text(dev["rdf:type"][0]["value"]);
+	// Optional members
+	var unit = dev["gc:hasUnit"] ? dev["gc:hasUnit"][0]["value"] : "-";
+	$("#gc_hasUnit").text(unit);	
+	var label = dev["rdfs:label"] ? dev["rdfs:label"][0]["value"] : "Label?";
+	$("#rdfs_label").val(label); 
+	var comment = dev["rdfs:comment"] ? dev["rdfs:comment"][0]["value"] : "Description?";
+	$("#rdfs_comment").val(comment);
+	$("#editor").show();	
+}
+
+function updateDeviceCount(){
+ var count = 0 
+ if(top.d) 
+ 	count =  Object.keys(top.d).length;
+ $("#device_count").html(count);
+}
+
+function sortDevices() {
+    var dd = [];
+    for(var uri in top.d){
+    	var dev = top.d[uri];
+    	var devType = dev["rdf:type"][0]["value"];
+        // Compare by sensor type
+        //var value = devType;
+        // Compare by physical device ID
+        var value = uri.substring(7);        
+        dd.push({'key': uri,'value': value });      
+    }
+    dd.sort(function(a, b) { return a.value.localeCompare(b.value); });    
+    return dd;
+}
+
+function formatObservations(){
+  var table  = "";
+  var dd = sortDevices();    
+  for(var i = 0; i < dd.length; i++){
+  	var uri = dd[i].key;  	
+    var obs = top.o[uri+"_value"];    
+    var devUri = uri;//obs["gc:observedBy"][0]["value"];   
+    var dev = top.d[devUri];
+    var devType = dev["rdf:type"][0]["value"];
+    var devLabel = dev["rdfs:label"][0]["value"];
+    var devUnit = dev["gc:hasUnit"] ? dev["gc:hasUnit"][0]["value"] : "-";
+    var unit = devUnit;
+    //var label = devLabel != "Label?" ? <span style=\"font-weight:bold\">devLabel</span> +"<br/>("+devUri+")" : devUri;    
+    var label = devLabel != "Label?" ? "<span style=\"text-decoration:italic\">"+devLabel+"</span><br/>" : "";
+    var value = obs ? obs["rdf:value"][0]["value"] : "-";
+    if(devType == "gc:Switch"){    	
+  		// is unknown or off
+    	if(value == "-" || value == "0"){
+    		value = '<span style="color:red;font-weight:bold">'+value + "</span> <button id=\"switch_"+uri+"\" onclick=\"switchButton('"+uri+"',1)\">turn on</button>";
+    	}
+    	// is on
+    	else{
+    		value = '<span style="color:green;font-weight:bold">'+value + "</span> <button id=\"switch_"+uri+"\" onclick=\"switchButton('"+uri+"',0)\">turn off</button>";
+    	}
+    };
+    var time = obs && obs["gc:observationResultTime"] ? obs["gc:observationResultTime"][0]["value"] : "-";
+        table += "<tr><td>"+label+"<a href=\"javascript:editSensorData('"+devUri+"')\" title=\"Edit sensor data\">"+devUri+"</a></td><td>"+devType+"</td><td id=\"value_"+uri+"\">"+value+"</td><td>"+unit+"</td><td>"+time+"</td></tr>";     
+   }
+   if(table) $("#observationTableBody").html(table);
+  }
+
+</script>
+
+<p class="statline ui-state-highlight">Integration Layer loaded and attached to <span id="device_count"></span> devices <button id="reload_devices" onclick="requestDeviceList()">Reload devices</button></p>
+
+<div class="ui-widget-header buttonGroup" style="text-align:left; padding-left:1em">	
+	Current sensor observations    
+	&nbsp;&nbsp;<button id="reload" onclick="updateObservationList()">Reload values</button>
+</div>
+
+<table id="observationTable" class="nicetable">
+	<thead>
+		<tr>
+			<th class="sensor_id" style="width:20%">Sensor</th>
+			<th class="sensor">Sensor type</th>			
+			<th class="value">Value</th>
+			<th class="unit">Unit</th>
+			<th class="time">Timestamp</th>
+		</tr>
+	</thead>
+	<tbody id="observationTableBody">
+		<tr>
+			<td colspan="5">No data yet</td>
+		</tr>
+	</tbody>
+</table>
+
+<div id="editor" style="padding-top:2em;display:none">
+	<div style="text-align:left; padding-left:1em" class="ui-widget-header buttonGroup">
+		Sensor details 
+		&nbsp;&nbsp;<button id="cancel" onclick="closeSensorEditor()">Cancel</button>
+		&nbsp;&nbsp;<button id="save" onclick="saveSensorData()">Save</button>	
+	</div>
+	<div>
+    <form name="editor_form">      	   
+	 <table id="annotationTable" class="nicetable">
+	 <thead>
+		<tr>
+			<th class="sensor" style="width:20%">Property</th>
+			<th class="sensor_id">Value</th>
+		</tr>
+	</thead>
+	<tbody>
+	 <tr>
+        <td><label for="rdf_about">URI:</label></td>
+        <td><span id="rdf_about" /></td>
+      </tr>
+	  <tr>
+        <td><label for="rdf_type">Type:</label></td>
+        <td><span id="rdf_type" /></td>
+      </tr>
+      <tr>
+        <td><label for="gc_hasUnit">Unit:</label></td>
+        <td><span id="gc_hasUnit" /></td>
+      </tr>
+	  <tr>
+        <td><label for="rdfs_label">Label:</label></td>
+        <td><input type="text" id="rdfs_label" style="width:60em" title="Enter some meaningful device label"></td>
+      </tr>
+      <tr>
+        <td><label for="rdfs_comment">Description:</label></td	>
+        <td><textarea id="rdfs_comment" class="ui-state-default ui-corner-all inputText" style="width:60em" title="Enter a description of device location, usage etc."></textarea></td>
+      </tr>
+     </tbody>
+    </table>
+  	</form>  	
+  </div>
+ </div>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" configuration-policy="require" deactivate="deactivate" immediate="true" modified="modified" name="integration-layer">
+ <implementation class="eu.greencom.xgateway.integrationlayer.impl.SerialCommunicationAdapter"/> 
+ <property name="port.name" type="String" value="/dev/ttyUSB0"/><!-- /dev/ttyUSB0 /dev/ttyACM0-->
+ <property name="port.baudrate" type="Integer" value="19200"/>
+ <!-- Every 6 hours -->
+ <property name="timer.updateperiod" type="Long" value="21600000"/>
+ <property name="init.delayperiod" type="Long" value="2000"/>
+ <service>
+    <provide interface="eu.greencom.xgateway.integrationlayer.api.service.IntegrationLayer"/>
+    <provide interface="eu.greencom.xgateway.integrationlayer.api.service.CommunicationAdapter"/>
+ </service>
+ <reference bind="setConfigurationAdmin" cardinality="1..1" interface="org.osgi.service.cm.ConfigurationAdmin" name="ConfigurationAdmin" policy="dynamic" unbind="removeConfigurationAdmin"/>
+ <reference bind="addMessageListener" cardinality="0..n" interface="eu.greencom.xgateway.integrationlayer.api.service.MessageListener" name="MessageListener" policy="dynamic" unbind="removeMessageListener"/>
+ <reference bind="setDataStorage" cardinality="1..1" interface="eu.greencom.xgateway.localdatastorage.api.service.LocalDataStorage" name="LocalDataStorage" policy="dynamic" unbind="removeDataStorage"/>
+ <reference bind="setEventAdmin" cardinality="1..1" interface="org.osgi.service.event.EventAdmin" name="EventAdmin" policy="dynamic" unbind="removeEventAdmin"/>
+</scr:component>

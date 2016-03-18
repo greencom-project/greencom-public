@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MetaData xmlns="http://www.osgi.org/xmlns/metatype/v1.0.0">
+	<OCD id="sensor-sum-aggregator" name="Sensor sum aggregator">
+		<AD id="aggregation.id" type="String" name="Identifier:"
+			description="Unique identifier of this configuration" required="true"/>
+		<AD id="aggregation.sources" type="String" name="Sources:"
+			description="Comma-separated list of sensor IDs" required="true"/>
+		<AD id="aggregation.target" type="String" name="Target:"
+			description="ID of the aggregated data target. If it does not exist, a new sensor will be created." />
+		<AD id="aggregation.target_type" type="String" name="Target type:"
+			description="'Cumulative', 'Instant' etc." />
+		<AD id="aggregation.target_context" type="String" name="Gateway ID:"
+			description="ID of the target context (gateway/installation ID)." />						
+		<AD id="aggregation.samplingperiod" type="String" name="Sampling period:"
+			description="Sampling period of the source (ISO-8601 period expression)"
+			default="PT15S" required="true"/>
+		<AD id="aggregation.period" type="String" name="Aggregation period:"
+			description="Aggregation period of the target (ISO-8601 period expression)"
+			default="PT1H" required="true" />		
+	</OCD>
+	<Designate pid="sensor-sum-aggregator" factoryPid="sensor-sum-aggregator">
+		<Object ocdref="sensor-sum-aggregator" />
+	</Designate>
+</MetaData>

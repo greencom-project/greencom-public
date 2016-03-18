@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: GridTopology
+Bundle-SymbolicName: GridTopology
+Bundle-Version: 0.6.0.qualifier
+Import-Package: 
+ eu.greencom.mgm.gridtopology.service,
+ org.osgi.service.component,
+ org.slf4j,
+ javax.ws.rs;version="2.0.0",
+ javax.ws.rs.core;version="2.0.0",
+ javax.ws.rs.ext;version="2.0.0",
+ org.junit,
+ javax.json
+Service-Component: OSGI-INF/*.xml
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+ 
+

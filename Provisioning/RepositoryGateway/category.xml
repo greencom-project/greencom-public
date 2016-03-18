@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature id="FeatureGateway2" version="0.6.0.qualifier">
+      <category name="Gateway"/>
+   </feature>
+   <category-def name="Gateway" label="Gateway">
+      <description>
+         Complete set of features/bundles for installation on Greencom Gateways
+      </description>
+   </category-def>
+</site>

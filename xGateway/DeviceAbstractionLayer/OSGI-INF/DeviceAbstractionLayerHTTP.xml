@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" configuration-policy="require" deactivate="deactivate" enabled="true" immediate="true" name="DeviceAbstractionLayerHTTP">
+   <implementation class="eu.greencom.xgateway.deviceabstractionlayer.http.impl.HTTPImpl"/>
+   <reference bind="setConfigurationAdmin" cardinality="1..1" interface="org.osgi.service.cm.ConfigurationAdmin" name="ConfigurationAdmin" policy="dynamic" unbind="removeConfigurationAdmin"/>
+   <reference bind="setEventAdmin" cardinality="1..1" interface="org.osgi.service.event.EventAdmin" name="EventAdmin" policy="dynamic" unbind="removeEventAdmin"/>
+   <property name="pid" type="String" value="DeviceAbstractionLayerHTTP"/>
+</scr:component>

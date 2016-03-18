@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="SystemHealthMonitor">
+   <implementation class="eu.greencom.mgmbroker.manager.impl.SystemHealthMonitorImpl"/>
+   <reference bind="bindConfigurationAdmin" cardinality="1..1" interface="org.osgi.service.cm.ConfigurationAdmin" name="ConfigurationAdmin" policy="dynamic" unbind="unbindConfigurationAdmin"/>
+   <reference bind="bindInstallationsChecker" cardinality="1..1" interface="eu.greencom.mgmbroker.manager.api.InstallationsChecker" name="InstallationsChecker" policy="dynamic" unbind="unbindInstallationsChecker"/>
+   <service>
+      <provide interface="eu.greencom.mgmbroker.manager.api.SystemHealthMonitor"/>
+   </service>
+</scr:component>

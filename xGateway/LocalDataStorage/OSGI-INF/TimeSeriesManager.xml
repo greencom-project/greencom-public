@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="TimeSeriesManager">
+   <implementation class="eu.greencom.localdatastorage.timeseries.impl.LocalTimeSeriesManager"/>
+   <reference bind="bindLocalDataStorage" cardinality="1..1" interface="eu.greencom.xgateway.localdatastorage.api.service.LocalDataStorage" name="LocalDataStorage" policy="dynamic" unbind="unbindLocalDataStorage"/>
+   <service>
+      <provide interface="eu.greencom.api.service.TimeSeriesManager"/>
+   </service>
+</scr:component>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="MGMBrokerAPICommandProvider">
+   <reference bind="bindIdentityManager" cardinality="1..1" interface="eu.linksmart.network.identity.IdentityManager" name="IdentityManager" policy="dynamic" unbind="unbindIdentityManager"/>
+   <implementation class="eu.linksmart.network.jsonrpc.utils.UtilCommandProvider"/>
+   <service>
+      <provide interface="org.eclipse.osgi.framework.console.CommandProvider"/>
+   </service>
+</scr:component>

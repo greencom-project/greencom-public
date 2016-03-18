@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MetaData xmlns="http://www.osgi.org/xmlns/metatype/v1.0.0">
+	<OCD id="sensor-delta-aggregator" name="Sensor delta aggregator">
+		<AD id="aggregation.id" type="String" name="Identifier:"
+			description="Unique identifier of this configuration" required="true"/>	
+		<AD id="aggregation.source" type="String" name="Source(s):"
+			description="Comma-separated list of sensor IDs" required="true"/>
+		<AD id="aggregation.samplingperiod" type="String" name="Sampling period:"
+			description="Sampling period of the source (ISO-8601 period expression)"
+			default="PT15S" required="true"/>
+		<AD id="aggregation.period" type="String" name="Aggregation period:"
+			description="Aggregation period of the target (ISO-8601 period expression)"
+			default="PT1H" required="true"/>		
+	</OCD>
+	<Designate pid="sensor-delta-aggregator" factoryPid="sensor-delta-aggregator">
+		<Object ocdref="sensor-delta-aggregator" />
+	</Designate>
+</MetaData>

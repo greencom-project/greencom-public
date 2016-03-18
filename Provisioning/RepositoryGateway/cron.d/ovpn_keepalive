@@ -1,0 +1,1 @@
+*/20 * * * * root /home/pi/greencom/bash/keep_alive.sh >/dev/null 2>&1

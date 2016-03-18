@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metatype:MetaData xmlns:metatype="http://www.osgi.org/xmlns/metatype/v1.0.0">
+
+	<OCD name="GreenCom: MGMBroker (Gateway) configuration" id="eu.linksmart.network.jsonrpc.server.configuration">
+		<AD
+			name="JSON-RPC endpoint ID"
+			descritpion="Identifier of the local JSON-RPC endpoint, must be unique within the LinkSmart network"
+			id="JSONRPC_SERVER_ID" required="false" type="String" default="" />
+			
+	</OCD>
+
+	<Designate pid="eu.linksmart.network.jsonrpc.server.configuration">
+		<Object ocdref="eu.linksmart.network.jsonrpc.server.configuration" />
+	</Designate>
+
+</metatype:MetaData>

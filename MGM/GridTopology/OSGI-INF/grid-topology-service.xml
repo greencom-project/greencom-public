@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" deactivate="deactivate" immediate="true" configuration-policy="optional" name="grid-topology-service">
+   <implementation class="eu.greencom.mgm.gridtopology.service.impl.GridTopologyServiceImpl"/>
+   <service>
+      <provide interface="eu.greencom.mgm.gridtopology.service.GridTopologyService"/>
+   </service>
+   <property name="topology.file.remote" type="String" value="http://greencom.fit.fraunhofer.de/gc/furPowerLines.js"/> 
+   <property name="topology.file.local" type="String" value="/furPowerLines.js"/>
+</scr:component>

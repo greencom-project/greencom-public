@@ -1,0 +1,6 @@
+/home/pi/greencom/log/rotating.log {
+  size 5M
+  rotate 5
+  compress
+  copytruncate
+}

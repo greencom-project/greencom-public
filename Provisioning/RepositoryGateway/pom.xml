@@ -1,0 +1,99 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>RepositoryGateway</artifactId>
+	<packaging>eclipse-repository</packaging>
+	<parent>
+		<groupId>eu.greencom.provisioning</groupId>
+		<artifactId>Provisioning</artifactId>
+		<version>0.6.0-SNAPSHOT</version>
+	</parent>
+
+  <build>
+		<plugins>			
+			<!-- Used to resolve transitive dependencies: http://stackoverflow.com/a/18060145 -->
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-p2-repository-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<includeAllDependencies>true</includeAllDependencies>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<!-- Add the start file: creates and loads Equinox configuration -->
+						<configuration>
+						    <includeEmptyDirs>true</includeEmptyDirs>
+							<outputDirectory>${project.basedir}/target/repository</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}</directory>
+									<includes>										
+										<include>bash/*</include>										
+										<include>cron.d/*</include>
+										<include>init.d/*</include>
+										<include>profile.d/*</include>
+										<include>logrotate.d/*</include>										
+										<include>script.include/*</include>
+										<include>script.settings/*</include>
+										<!-- Initialize directories for runtime usage   -->										
+										<include>load</include>
+										<!--  if missing, default (transient) "bundlecache" will be used -->
+										<include>configadmin</include>										
+										<include>dependency.list</include>																												
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy_python</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.basedir}/target/repository/python/py-post-alive</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/python/py-post-alive</directory>
+									<includes>
+										<include>*.py</include>
+										<include>*.sh</include>
+									</includes>
+								</resource>										
+							</resources>
+						</configuration>
+					</execution>					
+					<execution>
+						<id>copy_patch</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.basedir}/target/repository/plugins</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}</directory>
+									<includes>
+										<include>org.eclipse.equinox.workaround.nullproperties_1.0.0.201410030808.jar</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

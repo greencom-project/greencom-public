@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="FeatureLinksmart"
+      label="FeatureLinksmart"
+      version="0.6.0.qualifier">
+
+   <description>
+      Set of bundles specific to LinkSmart Light.
+   </description>
+
+   <plugin
+         id="eu.linksmart.api.backbone"
+         download-size="0"
+         install-size="0"
+         version="2.2.1"
+         unpack="false"/>
+
+   <plugin
+         id="eu.linksmart.api.backbone.router"
+         download-size="0"
+         install-size="0"
+         version="2.2.1"
+         unpack="false"/>
+
+   <plugin
+         id="eu.linksmart.api.clients"
+         download-size="0"
+         install-size="0"
+         version="2.2.1"
+         unpack="false"/>
+
+   <plugin
+         id="eu.linksmart.api.cryptomanager"
+         download-size="0"
+         install-size="0"
+         version="2.2.1"
+         unpack="false"/>
+
+   <plugin
+         id="eu.linksmart.api.identitymanager"
+         download-size="0"
+         install-size="0"
+         version="2.2.1"
+         unpack="false"/>
+
+   <plugin
+         id="eu.linksmart.api.network"
+         download-size="0"
+         install-size="0"
+         version="2.2.1"
+         unpack="false"/>
+
+   <plugin
+         id="eu.linksmart.api.networkmanager"
+         download-size="0"
+         install-size="0"
+         version="2.2.1"
+         unpack="false"/>
+
+   <plugin
+         id="eu.linksmart.api.networkmanager.core"
+         download-size="0"
+         install-size="0"
+         version="2.2.1"
+         unpack="false"/>
+
+   <plugin
+         id="eu.linksmart.api.policy"
+         download-size="0"
+         install-size="0"
+         version="2.2.1"
+         unpack="false"/>
+
+   <plugin
+         id="eu.linksmart.api.security.communication"
+         download-size="0"
+         install-size="0"
+         version="2.2.1"
+         unpack="false"/>
+
+   <plugin
+         id="eu.linksmart.api.trustmanager"
+         download-size="0"
+         install-size="0"
+         version="2.2.1"
+         unpack="false"/>
+
+   <plugin
+         id="eu.linksmart.api.utils"
+         download-size="0"
+         install-size="0"
+         version="2.2.1"
+         unpack="false"/>
+
+   <plugin
+         id="eu.linksmart.network.backbone.data"
+         download-size="0"
+         install-size="0"
+         version="2.2.1"
+         unpack="false"/>
+
+   <plugin
+         id="eu.linksmart.network.backbone.jxta"
+         download-size="0"
+         install-size="0"
+         version="2.2.1"
+         unpack="false"/>
+
+   <plugin
+         id="eu.linksmart.network.backbone.router"
+         download-size="0"
+         install-size="0"
+         version="2.2.1"
+         unpack="false"/>
+
+   <plugin
+         id="eu.linksmart.network.identitymanager"
+         download-size="0"
+         install-size="0"
+         version="2.2.1"
+         unpack="false"/>
+
+   <plugin
+         id="eu.linksmart.network.networkmanager"
+         download-size="0"
+         install-size="0"
+         version="2.2.1"
+         unpack="false"/>
+
+   <plugin
+         id="eu.linksmart.security.cryptomanager"
+         download-size="0"
+         install-size="0"
+         version="2.2.1"
+         unpack="false"/>
+
+   <plugin
+         id="eu.linksmart.security.trustmanager"
+         download-size="0"
+         install-size="0"
+         version="2.2.1"
+         unpack="false"/>
+
+</feature>

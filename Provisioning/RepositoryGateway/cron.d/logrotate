@@ -1,0 +1,2 @@
+# Execute logrotate every hour to early enforce size-based rules, see: http://stackoverflow.com/a/23728801
+* * * * * root /etc/cron.daily/logrotate >/dev/null 2>&1

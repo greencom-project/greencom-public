@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="GWDataBroker">
+   <implementation class="eu.greencom.xgateway.gwdatabroker.impl.service.GWDataBroker"/>
+   <reference bind="bindTimeSeriesManager" cardinality="1..1" interface="eu.greencom.api.service.TimeSeriesManager" name="TimeSeriesManager" policy="dynamic" unbind="unbindTimeSeriesManager"/>
+   <service>
+      <provide interface="org.osgi.service.event.EventHandler"/>
+   </service>
+   <property name="event.topics" type="String" value="eu/greencom/sensordata"/>
+</scr:component>

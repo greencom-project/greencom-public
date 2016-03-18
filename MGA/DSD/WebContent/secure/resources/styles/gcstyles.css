@@ -1,0 +1,81 @@
+/* Re-Styling some Bootstrap and the map */
+  body {
+    margin:0;
+    padding-top:60px;
+  }
+  
+  a:hover {
+    cursor: pointer;
+  }
+
+  .largeMap {
+    /*width: 938px;*/
+    height: 600px;
+    border: 1px solid black;
+  }
+
+  .smallMap {
+    /*width: 200px;*/
+    height: 200px;
+    border: 1px solid black;
+  }
+
+  /* Example */
+  svg#theGroup {
+    position: relative;
+    padding: 40px; /* Allow larger elements than the group actually is */
+    overflow: visible;
+  }
+
+  path:hover {
+    cursor: pointer;
+  }
+
+  .myGChidden {
+    visibility: hidden;
+    overflow: hidden;
+    /*width: 0px;*/
+    height: 0px;
+  }
+
+  /* Tooltip on lines*/
+  div.tooltip {   
+    position: absolute;           
+    text-align: left;
+    vertical-align: middle;        
+    width: 200px;                  
+    height: 60px;                 
+    padding: 2px;             
+    font: 12px sans-serif;        
+    background: lightsteelblue;   
+    border: 0px;      
+    border-radius: 8px;           
+    pointer-events: none;
+    opacity: 0;     /*Initially not visible*/    
+  }
+
+  li:hover {
+    cursor: pointer;
+  }
+
+/* Style information for diff graph */
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  .area.above {
+    fill: rgb(145,207,96);
+  }
+
+  .area.below {
+    fill: rgb(216,0,0);
+  }
+
+  .line {
+    fill: none;
+    stroke: #000;
+    stroke-width: 1.5px;
+  }

@@ -1,0 +1,11 @@
+<metatype:MetaData xmlns:metatype="http://www.osgi.org/xmlns/metatype/v1.0.0">
+	<metatype:OCD id="sensor-manager" name="GreenCom: WebApiConsumer configuration">
+		<metatype:AD id="host" type="String" name="Host URL" required="true" />
+		<metatype:AD id="user" type="String" name="User name" required="true"/>
+		<metatype:AD id="password" type="String" name="Password" required="true"  />			
+	</metatype:OCD>
+	<!-- Preserve the original PID -->
+	<metatype:Designate pid="eu.greencom.mgm.webapiconsumer">
+		<metatype:Object ocdref="sensor-manager" />
+	</metatype:Designate>
+</metatype:MetaData>

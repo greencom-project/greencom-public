@@ -1,0 +1,28 @@
+<metatype:MetaData xmlns:metatype="http://www.osgi.org/xmlns/metatype/v1.0.0">
+
+	<metatype:OCD id="HPIntegrationConsumer" name="GreenCom: HeatpumpIntegrationConsumer configuration">
+		<metatype:AD id="readstatus" type="Boolean" name="readstatus"
+			default="false" description="For monitoring the parameters of HP, it needs to be checked" />
+		<metatype:AD id="readactive" type="String" name="readactive"
+			default="false"
+			description="If monitoring is enabled, then by writting 'stop' ,the monitoring will be stopped" />
+		<metatype:AD id="prestring" type="String" name="prestring"
+			required="true" default="NoHouseName"
+			description="This field will be add to the first of each parameter name to make sensorID for uploading the data to GC, example: houseXhp-" />
+		<metatype:AD id="readparameter" type="Integer" name="readparameter"
+			default="47007"
+			description="the integer number which should be sent to modbus to receive the result" />
+		<metatype:AD id="writestatus" type="Boolean" name="writestatus"
+			default="false" description="For Writting the parameter of HP, it needs to be checked" />
+		<metatype:AD id="writeparameter" type="Integer" name="writeparameter"
+			default="47131"
+			description="the integer number which should be sent to modbus to write the value" />
+		<metatype:AD id="writevalue" type="Integer" name="writevalue"
+			default="0" description="the value which should be set for the writeparameter" />
+		<metatype:AD id="timeupdateperiod" type="Long" default="60000"
+			name="Time-update period" description="Period the reference time is updated (miliseconds)." />
+	</metatype:OCD>
+	<metatype:Designate pid="HPIntegrationConsumer">
+		<metatype:Object ocdref="HPIntegrationConsumer" />
+	</metatype:Designate>
+</metatype:MetaData>

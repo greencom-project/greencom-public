@@ -1,0 +1,40 @@
+  <metatype:MetaData 
+    xmlns:metatype='http://www.osgi.org/xmlns/metatype/v1.1.0'>
+    <OCD 
+      name='Greencom: Dispatcher configuration' 
+      id='Dispatcher'>
+      <AD 
+      	name='Dispatching period'
+        description='Period between two data dispatching calls' 
+        id='DispatchingPeriodInSecs' 
+        default='30' 
+        required='true' 
+        type='Integer'/>
+      
+      <AD 
+      	name='Max values limit'
+        description='Maximum number of values uploaded at once' 
+        id='Limit' 
+        default='500' 
+        required='true' 
+        type='Integer'/>
+      <AD 
+        description='Period between two data cleaning calls in seconds'
+        name='Cleaning period' 
+        id='CleaningPeriodInSecs'         
+        required='true' 
+        type='Integer'
+        default='180' />
+      <!--  
+      <AD 
+        name='DataWarehouse host' 
+        id='DataWarehouseHost'         
+        required='true' 
+        type='String'/>
+       -->    
+    </OCD>    
+    <Designate pid='eu.greencom.mgmbroker.gateway.commandlayer.dispatcher'>
+      <Object ocdref='Dispatcher'/>
+    </Designate>
+  </metatype:MetaData>
+

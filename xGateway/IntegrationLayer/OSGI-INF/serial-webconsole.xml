@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" configuration-policy="optional" deactivate="deactivate" immediate="true" name="serial-webconsole">
+   <implementation class="eu.greencom.xgateway.integrationlayer.impl.SerialWebConsolePlugin" />
+   <service>
+      <provide interface="javax.servlet.Servlet"/>
+   </service>
+   <reference cardinality="1..1" interface="eu.greencom.xgateway.integrationlayer.api.service.IntegrationLayer" name="controller" policy="dynamic" bind="setController"  unbind="removeController"/>
+   <property name="felix.webconsole.label" type="String" value="serial-webconsole"/>
+</scr:component>

@@ -1,0 +1,2 @@
+# 30 03 * * * root /sbin/reboot
+30 03 * * * root /sbin/shutdown -rF now >/dev/null 2>&1

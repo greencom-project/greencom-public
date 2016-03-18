@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="MetaInformationManager">
+   <implementation class="eu.greencom.localdatastorage.metainformationstore.impl.MongoMetaInformationManager"/>
+   <reference bind="bindLocalDataStorage" cardinality="1..1" interface="eu.greencom.xgateway.localdatastorage.api.service.LocalDataStorage" name="LocalDataStorage" policy="dynamic" unbind="unbindLocalDataStorage"/>
+   <service>
+      <provide interface="eu.greencom.xgateway.metainformationstore.api.service.MetaInformationManager"/>
+   </service>
+</scr:component>

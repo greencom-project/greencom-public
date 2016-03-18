@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="JsonRpcServer">
+   <implementation class="eu.linksmart.network.jsonrpc.impl.JsonRpcServer"/>
+   <reference cardinality="1..1" interface="eu.linksmart.network.networkmanager.NetworkManager" name="NetworkManager" policy="dynamic" bind="bindNetworkManager" unbind="unbindNetworkManager"/>
+   <reference cardinality="1..1" interface="org.osgi.service.event.EventAdmin" name="EventAdmin" policy="dynamic" bind="bindEventAdmin" unbind="unbindEventAdmin"/>
+   <reference cardinality="1..1" interface="org.osgi.service.cm.ConfigurationAdmin" name="ConfigurationAdmin" policy="dynamic" bind="bindConfigurationAdmin" unbind="unbindConfigurationAdmin"/>
+   <reference cardinality="1..1" interface="eu.linksmart.network.jsonrpc.api.JsonRpcMessageManager" name="JsonRpcMessageManager" policy="dynamic" bind="bindJsonRpcMessageManager" unbind="unbindJsonRpcMessageManager"/>
+</scr:component>

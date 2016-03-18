@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: MGMMetaInformationStoreAPI
+Bundle-SymbolicName: MGMMetaInformationStoreAPI
+Bundle-Version: 0.6.0.qualifier
+Export-Package: eu.greencom.mgm.metainformationstore.api.domain,
+ eu.greencom.mgm.metainformationstore.api.service
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+

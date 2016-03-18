@@ -1,0 +1,292 @@
+#!/bin/bash
+
+#########################################
+# Update script for GreenCom gateways 
+#########################################
+
+# Default location of the update file (to be overriden by the settings file)
+UPDATE_URL="http://greencom.fit.fraunhofer.de:8081/nexus/service/local/artifact/maven/redirect?r=snapshots&g=eu.greencom.provisioning&a=RepositoryGateway&e=zip&v=LATEST"
+
+# When "true" "apt-get install -y" will be used to automatically install missing packages
+AUTO_INSTALL=true
+
+# Directory containing the update script, base directory for installations/updates 
+BASE_DIR=`dirname "$0"`
+
+# New repo version, yet empty until downloaded
+NEW_DIR=
+
+# Previous repo version (target of the "greencom" link)
+OLD_DIR=$GC_HOME
+
+setenv() {
+	OLD_DIR=`readlink "$BASE_DIR/greencom" 2> /dev/null`
+	# The link may be missing, locate the latest runtime
+	if [ -z "$OLD_DIR" ]
+	then 
+		# Match any repo-name: Repository*, e.g. RepositoryFronius etc. 
+		OLD_DIR=`find "$BASE_DIR" -maxdepth 1 -type d -name "Repository*" -printf "%C@ %p\n" | sort -rn | cut -f2 -d' ' | head -n 1`		
+		#if [ -d "$OLD_DIR" ]; ln -s "$OLD_DIR" "$BASE_DIR/greencom"
+	fi
+	#if [[ ! "$PATH" =~ "mongo" ]]; then export PATH=$PATH:/opt/mongodb/bin/; fi
+}
+
+ensure_stopped() {
+  JAVA_PID=`ps --no-headers exo "pid:1,cmd" | grep -E "^[0-9]+ java.*/home/pi" | cut -f1 -d' '`
+  if [ -n "$JAVA_PID" ]; then echo "GreenCom is running, please stop first!"; exit 1; fi  
+}
+	
+# Tests whether the executing user has sufficient permissions (is "root")
+require_superuser() {
+	EXECUTING_USER=`whoami`
+	if [[ $EXECUTING_USER != "root" ]]; then echo -e "Run this script as superuser:\t sudo ./gcupdate"; exit 1; fi
+}
+
+# Ensures a required parameter is given
+ensure_required_parameter() {
+	if [ -z "$1" ]; then echo "${FUNCNAME[ 1 ]}: required parameter is missing!"; exit 1; fi
+}
+
+# Loads script extensions from folders (foo/<SCRIPT>.include/bar) or files "foo/<SCRIPT>.include.bar"
+# ARG1: Directory to search for script extensions
+load_includes() {
+	ensure_required_parameter "$1"
+	local SCRIPT=`basename $0`
+	# Sort includes file1 -> file2 -> file3
+	local INCLUDES=`find "$1" -type f \( -path "*/${SCRIPT}.include/*" -o -name "${SCRIPT}*.include" \) | sort`
+	#echo $INCLUDES
+	# Did not work out of -exec: 
+	for INCLUDE in $INCLUDES; do echo -e "Included script:\t$INCLUDE"; . $INCLUDE; done
+}
+
+# Loads a list of system dependencies (package or command) and tries to install the missing
+# ARG1: Directory to search for the file "dependency.list"
+check_dependencies() {	
+	ensure_required_parameter "$1"
+	DEP_LIST=`find "$1" -type f -name dependency.list -exec cat {} \;`
+	for DEP in `echo $DEP_LIST`; do	
+		if ! test_cmd_available "$DEP" && ! test_pkg_installed
+		then 
+			echo -n "\"$DEP\" is missing"
+			if [ "true" == "$AUTO_INSTALL" ]; 
+				then echo -n ", trying to install ... "
+					if pkg_install $DEP; then echo "success"; else echo "error!"; fi
+				else echo ", please install manually"
+				fi
+		fi		
+	done
+}
+
+# Test whether given command is on PATH
+# ARG1: Command name
+test_cmd_available() {	
+	local CMD_INSTALLED=`command -v "$1"`
+	if [ -n "$CMD_INSTALLED" ]; then return 0; else return 1; fi
+}
+
+# Test whether a package of given name is installed
+# ARG1: Package name
+test_pkg_installed() {	
+	local PKG_INSTALLED=`dpkg-query --show --showformat='${Status}' "$1" 2> /dev/null | cut -f1 -d' '`	
+	if [[ "$PKG_INSTALLED" == "install" ]]; then return 0; else return 1; fi
+}
+
+# Installs silently (non-interactive) given package
+# ARG1: Package name
+pkg_install() {	
+	sudo apt-get install -y "$1" >/dev/null 2>&1
+}
+
+# Ensures all "bash/*" and "*.sh" files are executable
+# ARG1 - Directory to search for script files
+check_script_permissions() {
+	ensure_required_parameter "$1"
+	find "$1" -type f \( -path "*/bash/*" -o -name "*.sh" \) -exec chmod +x {} \;		
+	find "$1" -type f \( -path "*/${SCRIPT}.include/*" -o -name "${SCRIPT}*.include" \) -exec chmod +x {} \;	
+}
+
+# Generates the name of the hidden installation log based on current script's name
+get_log_name() {
+	local SCRIPT=`basename $0`
+	echo ".${SCRIPT}.log"
+}
+
+# Installs a file to target directory and adds a log entry on success
+# ARG1: Path of the file to install
+# ARG2: Target directory (e.g. /etc/cron.d)
+install_file() {
+	ensure_required_parameter "$1"
+	ensure_required_parameter "$2"
+	local LOG=`get_log_name`
+	cp -f "$1" "$2" 2> /dev/null; 
+	local ABS_PATH=`realpath $2/$(basename $1) 2> /dev/null`
+	if [ $? == 0 -a -n "$ABS_PATH" ]; then echo "$ABS_PATH" >> $LOG; fi
+}
+# Removes given file form the file system and deletes the log entry on success
+# ARG1: Path of the file to remove
+uninstall_file() {		
+	ensure_required_parameter "$1"
+	local LOG=`get_log_name`
+	local ABS_PATH=`realpath "$1" 2> /dev/null` 
+	rm -f "$ABS_PATH" 2> /dev/null
+	# Deletes the log entry by storing the reminder of the log except given path	
+	if [ $? == 0 ]; then grep -v -x "$ABS_PATH" $LOG > /tmp/out; mv /tmp/out $LOG; fi
+}
+
+# Installs application files into dedicated system folders according to a naming convention
+# ARG1 - Directory to search for application files
+install_system_files() {
+	ensure_required_parameter "$1"
+	# Log of the previous installation will be overwritten, preserve as <LOG>.old
+	local LOG=`get_log_name`	
+	mv -f "$LOG" "${LOG}.old" 2> /dev/null
+	
+	# Install cron schedules
+	for CRON in `find "$1" -type f \( -path "*/cron.d/*" -o -name "*.cron" \)`; do install_file "$CRON" /etc/cron.d; done
+	
+	# Install logrotate configurations
+	for LOGROTATE in `find "$1" -type f \( -path "*/logrotate.d/*" -o -name "*.logrotate" \)`; do install_file "$LOGROTATE" /etc/logrotate.d; done
+	
+	# Install global settings loaded by /etc/profile
+	for PROFILE in `find "$1" -type f \( -path "*/profile.d/*" -o -name "*.profile" \)` 
+	do 
+		FILE=`basename $PROFILE`
+		# Check file extension ".sh" expected by /etc/profile
+		if [[ ! "$FILE" =~ ".sh" ]]; then cp $PROFILE /tmp/${FILE}.sh; PROFILE=/tmp/${FILE}.sh; fi
+		install_file "$PROFILE" /etc/profile.d
+	done
+	# Source profiles when supplied
+	if [ -n "$PROFILE" ]; then . /etc/profile; fi
+		 	
+	# Install init scripts (should not have a file extension - used as service name)
+	for INIT in `find "$1" -type f -path "*/init.d/*"`
+	do 
+		# Extract name of provided service
+		# SERVICE=`grep -oE "Provides:[ ]+[0-9A-Za-z]+" skeleton | sed -e 's/^.* \([^ ]*\)$/\1/'`		
+		SERVICE=`basename $INIT`		
+		if [ -n "$SERVICE" ]
+		then
+				install_file "$INIT" /etc/init.d
+				chmod +x "/etc/init.d/$SERVICE"
+				# Register init service
+				update-rc.d "$SERVICE" defaults 2> /dev/null
+		fi
+	done
+	# Now the log is complete, create a diff and remove stale files from previous run
+	# http://unix.stackexchange.com/a/28185
+	touch "$LOG" "${LOG}.old"
+	STALE_FILES=`comm <(sort "$LOG") <(sort "${LOG}.old") -3 -1 2> /dev/null`
+	for FILE in $STALE_FILES; do rm $FILE; done
+}
+
+# Removes all files recorded in installation log
+uninstall_system_files() {
+	local LOG=`get_log_name`
+	for FILE in `cat $LOG`
+	do 		
+		uninstall_file $FILE
+		if [[ "$INIT" =~ "/init.d/" ]]
+		then  
+			# Unregister init service
+			SERVICE=`basename "$INIT"`
+			update-rc.d "$SERVICE" remove 2> /dev/null
+		fi
+	done
+}
+
+update_osgi_runtime() {
+	# Preserve config admin files
+	cp -r "${1}/configadmin" "$2" 	
+}
+
+# Updates persistent global settings by contents of file <SCRIPT>.settings
+# ARG1: Directory to search for settings file
+update_settings() {
+	ensure_required_parameter "$1"
+	local SCRIPT=`basename $0`
+	# Transient settings file overridden by every update
+	local GLOBAL_SETTINGS_NAME=".${SCRIPT}.settings.global"
+	find "$1" -type f -name "${SCRIPT}.settings" -exec cat {} > $GLOBAL_SETTINGS_NAME \;
+}
+
+# Loads script's global and local settings
+load_settings() {
+	local SCRIPT=`basename $0`
+	# Transient global settings will be overridden by every update
+	local GLOBAL_SETTINGS_NAME=".${SCRIPT}.settings.global"
+	if [ -f "$GLOBAL_SETTINGS_NAME" ]; then . $GLOBAL_SETTINGS_NAME; fi
+	# Persistent local settings taking precedence
+	local LOCAL_SETTINGS_NAME=".${SCRIPT}.settings.local"	
+	if [ -f "$LOCAL_SETTINGS_NAME" ]; then . $LOCAL_SETTINGS_NAME; fi
+}
+
+# Extracts the specified ZIP archive into a directory of same name
+# ARG1: Path to the ZIP archive
+extract_archive() {	
+	local DIR=`basename "$1" .zip`;
+	local BASE_DIR=`dirname "$0"`
+	# Override!
+	unzip -q -o -d "$BASE_DIR/$DIR" "$1" 2> /dev/null;
+	echo $DIR
+}
+
+# Downloads and unpacks the latest update into the given directory
+# ARG1: Update URL
+load_update() {		
+	echo -n "Downloading update ... "
+	local WGET_LOG=.wget.log
+	#  Download only when newer to /tmp, request real name
+	wget -P /tmp -N -nv -o $WGET_LOG --content-disposition "$1"		
+	# Use "non verbose" output to identify name of downloaded file (even after redirect)
+	# like ... "] -> "/tmp/RepositoryGateway-0.1.0-20150211.101542-1.zip" [" ...
+	local ARCHIVE=`grep  -o '\] -> ".* \[' $WGET_LOG | cut -c 12- | head -c -4`
+	# Stop, when there is nothing to do, else pass the archive name
+	if [ -z "$ARCHIVE" ]; then echo "no recent update found!"; exit 1; fi
+	echo "done ($ARCHIVE)"
+	NEW_DIR=`extract_archive "/tmp/$ARCHIVE"`
+}	
+
+
+# Intialization 
+init() {
+	ensure_stopped
+	require_superuser
+	setenv
+	cd "$BASE_DIR"
+	load_settings	
+}
+
+preprocess_update() {		
+	load_update "$UPDATE_URL"
+	load_includes "$NEW_DIR"
+	update_settings "$NEW_DIR"
+	check_dependencies "$NEW_DIR"
+	check_script_permissions "$NEW_DIR"
+}
+
+process_update() {
+	# Should be done on request/runtime arg?
+	install_system_files "$NEW_DIR"
+	update_osgi_runtime "$OLD_DIR" "$NEW_DIR"
+}
+
+postprocess_update() {
+	update_settings "$NEW_DIR"	
+	chown -R pi:pi "$NEW_DIR"
+	# Reset link
+	rm -f greencom
+	#rm -rf "$OLD_DIR"
+	ln -s "$NEW_DIR" greencom
+}
+
+# High level update process - functions to be overridden by script includes
+update() {		
+	init
+	preprocess_update
+	process_update
+	postprocess_update
+}
+
+update
+
+

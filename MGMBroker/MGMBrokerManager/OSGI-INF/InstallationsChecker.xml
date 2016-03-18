@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" configuration-policy="require" activate="activate" deactivate="deactivate"  modified="modified" immediate="true" enabled="true" name="InstallationsChecker">
+   <implementation class="eu.greencom.mgmbroker.manager.impl.InstallationsCheckerImpl"/>
+   <reference bind="bindWebApiConsumer" cardinality="1..1" interface="eu.greencom.mgm.webapiconsumer.api.service.WebApiConsumer" name="WebApiConsumer" policy="dynamic" unbind="unbindWebApiConsumer"/>
+   <service>
+      <provide interface="eu.greencom.mgmbroker.manager.api.InstallationsChecker"/>
+   </service>
+</scr:component>

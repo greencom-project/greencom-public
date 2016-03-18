@@ -1,0 +1,27 @@
+<metatype:MetaData xmlns:metatype="http://www.osgi.org/xmlns/metatype/v1.0.0">
+	<metatype:OCD id="FroniusAdapter" name="Greencom: FroniusAdapter configuration">
+		<metatype:AD id="gateway" type="String" required="true"
+			name="Gateway" description="Gateway ID as used in Data Warehouse" />
+		
+		<metatype:AD id="endpoint" type="String" required="true" default="http://localhost:9090/components/5/0"
+			name="Endpoint" description="Fronius Solar-API location" />
+		
+		
+		<metatype:AD id="samplingRate" type="Long" required="true" default="60"
+			name="Sampling rate" description="Sampling rate in seconds." />		
+		
+			
+		<metatype:AD id="separator" type="String" required="true" 
+			default="#"
+			name="Separator" description="Parameter value separator" />
+		
+		<metatype:AD id="params" type="String" required="true" cardinality="10"			
+			default="?print=names#$.Body.Data.Power_P_Grid.value#2EPower_P_Grid_HouseXX#Power"
+			name="Parameter mapping" description="Syntax: &#60;OPERATION PATH&#62;&#60;SEPARATOR&#62;&#60;JSON PATH&#62;&#60;SEPARATOR&#62;&#60;TARGET SENSOR&#62;" />
+		
+						
+	</metatype:OCD>
+	<metatype:Designate factoryPid="FroniusAdapter">
+		<metatype:Object ocdref="FroniusAdapter" />
+	</metatype:Designate>
+</metatype:MetaData>
