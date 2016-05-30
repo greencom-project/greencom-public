@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from greencom.azurewebsites.net/api/metadata?xsd=1 by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 23 May 2016 09:42:49 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta name="msapplication-config" content="none" />
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,100,500,400,300italic,400italic' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" id="favicon" type="image/ico" href="http://greencom.azurewebsites.net/Content/images/favicon.ico?v=1.1.7.29996" />
+    <title>Greencom  - Error</title>
+    <meta name="accept-language" content="en-US">
+    <link href='../css/style9706.css?v=1.1.7.29996' rel="stylesheet" type="text/css" />
+    <link href='../content/alertify.core9706.css?v=1.1.7.29996' rel="stylesheet" type="text/css" />
+    <link href='../content/alertify.default9706.css?v=1.1.7.29996' rel="stylesheet" type="text/css" />
+        <link href='../css/settings9706.css?v=1.1.7.29996' rel="stylesheet" type="text/css" />
+
+        
+            <script type="text/javascript">
+
+                var appInsights = window.appInsights || function (config) {
+                    function s(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } } var t = { config: config }, r = document, f = window, e = "script", o = r.createElement(e), i, u; for (o.src = config.url || "//az416426.vo.msecnd.net/scripts/a/ai.0.js", r.getElementsByTagName(e)[0].parentNode.appendChild(o), t.cookie = r.cookie, t.queue = [], i = ["Event", "Exception", "Metric", "PageView", "Trace"]; i.length;) s("track" + i.pop()); return config.disableExceptionTracking || (i = "onerror", s("_" + i), u = f[i], f[i] = function (config, r, f, e, o) { var s = u && u(config, r, f, e, o); return s !== !0 && t["_" + i](config, r, f, e, o), s }), t
+                }({
+                    instrumentationKey: "e0744bab-0d67-4aab-b262-38347ff5fa88"
+                });
+
+                window.appInsights = appInsights;
+                appInsights.trackPageView();
+            </script>
+        
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="centered">
+                <h1>Dashboard</h1>
+                <div class="menu_button">
+                    <span style="display: none;" class="message-value"></span>
+                    <a href="#" class="show_menu">Show menu</a>
+                </div>
+                <div id="menu">
+                    <nav>
+                        
+
+
+
+<ul>
+    <li>
+    </li>
+</ul>
+<input type="hidden" id="hiddenInstallationId" />
+
+<div class="slide-message"></div>
+
+
+
+                        
+
+
+    <div class="login">
+        <a href="http://greencom.azurewebsites.net/Account/Login" id="loginButton">Log in</a>
+    </div>
+
+                    </nav>
+                    <div class="close">Close</div>
+                </div>
+                <div class="logo-wrapper">
+                    <div class="logo"><a href="#">Greencom</a></div>
+                </div>
+            </div>
+        </header>
+        <section>
+            <div class="centered" style="padding-bottom:30px;">
+                
+
+
+<div class="settings">
+    <h1>Code 500</h1>
+        <p>Sorry, an error occured while processing your request</p>
+</div>
+                
+            </div>
+            
+            <br />
+            <br />
+        </section>
+        <footer>
+            <div class="centered" style="max-width:920px;">
+                <ul style="margin-bottom:0;">
+                    <li style="line-height: 60px;">This project is co-funded by the <a title="European Commission Information Society" href="http://ec.europa.eu/information_society" target="_blank"> European Commission</a> under the <a title="7th Framework Programme" href="http://cordis.europa.eu/fp7/ict/" target="_blank">7th Framework Programme </a></li>
+                    <li style="border:none;float:right !important;"><img class="pull-right hidden-xs hidden-sm" alt="europe flag small" style="margin-top: 10px;" src="../content/images/greencom/europe_flag_small.jpg" height="40" width="60" /></li>
+                </ul>
+            </div>
+        </footer>
+
+    </div>
+
+    <script src=../scripts/jquery-2.1.4.min9706.js?v=1.1.7.29996 type="text/javascript"></script>
+    <script src=../scripts/moment.min9706.js?v=1.1.7.29996 type="text/javascript"></script>
+    <script src=../scripts/moment.langs.min9706.js?v=1.1.7.29996 type="text/javascript"></script>
+    <script src=../scripts/jquery.signalR-2.2.0.min9706.js?v=1.1.7.29996 type="text/javascript"></script>
+    <script src="http://greencom.azurewebsites.net/signalR/hubs"></script>
+    <script src=../scripts/Views/jquery.touchSwipe.min9706.js?v=1.1.7.29996 type="text/javascript"></script>
+    <script src=../scripts/Views/generic9706.js?v=1.1.7.29996 type="text/javascript"></script>
+    <script src=../scripts/jquery.cookie9706.js?v=1.1.7.29996></script>
+    <script src="../scripts/Views/jstz.min9706.js?v=1.1.7.29996"></script>
+    <script src=../content/js/alertify.min.js type="text/javascript"></script>
+    <script>
+        $.cookie('userTimeZone', jstz.determine().name(), { path: '/' });
+    </script>
+        <script type="text/javascript">
+
+        var timer;
+
+        var weekAgo = moment().hours(0).minute(0).seconds(0).subtract(6, 'days');
+        var fromWrapper = moment(weekAgo);
+
+        $(function () {
+
+            var installationId = $.cookie('selectedInstallationId');
+
+            var dashboardViewCookieValue = $.cookie('dashboardView');
+            $("#linkConsumption").attr("href", '/installations/' + installationId + '/Consumption'); /*Default Value*/
+            if (dashboardViewCookieValue != undefined) {
+                var dasboardViewPerInstallation = dashboardViewCookieValue.split("&");
+                for (i = 0; i < dasboardViewPerInstallation.length; i++) {
+                    if (dasboardViewPerInstallation[i].split("$")[0] == installationId) {
+                        var dashboardView = dasboardViewPerInstallation[i].split("$")[1];
+                        if (dashboardView == 'electricity') {
+                            $("#linkConsumption").attr("href", '/installations/' + installationId + '/Electricity');
+                            $("#linkConsumption").text('Electricity');
+                        }
+                        else if (dashboardView == 'gas') {
+                            $("#linkConsumption").attr("href", '/installations/' + installationId + '/Gas');
+                            $("#linkConsumption").text('Gas');
+                        }
+                        else if (dashboardView == 'heating') {
+                            $("#linkConsumption").attr("href", '/installations/' + installationId + '/Heating');
+                            $("#linkConsumption").text('Heating');
+                        }
+                        else if (dashboardView == 'water') {
+                            $("#linkConsumption").attr("href", '/installations/' + installationId + '/Water');
+                            $("#linkConsumption").text('Water');
+                        }
+                    }
+                }
+            }
+
+            var userId = '';
+            if (userId != '') {
+                $.getJSON('/api/users/' + userId + '/events/count?pending=true&DateFrom=' + fromWrapper.utc().format("YYYY-MM-DDTHH:mm:ss"), function (data) {
+                    if (data.TotalCount > 999) {
+                        $(".messages span.value").text("+999").css("font-size", "11px").show();
+                        $(".menu_button span").text("+999").css("font-size", "11px").show();
+                    }
+                    else if (data.TotalCount > 0) {
+                        $(".messages span.value").text(data.TotalCount).show();
+                        $(".menu_button span").text(data.TotalCount).show();
+                    } else {
+                        $(".messages span.value").text(data.TotalCount).hide();
+                        $(".menu_button span").text(data.TotalCount).hide();
+                    }
+                });
+
+                var eventHubProxy = $.connection.eventHub;
+                $.connection.hub.start().done(function () {
+                    eventHubProxy.server.joinGroup(userId);
+                });
+
+                var warningHubProxy = $.connection.warningHub;
+                $.connection.hub.start().done(function () {
+                    warningHubProxy.server.joinGroup(userId);
+                });
+
+                eventHubProxy.client.receivePendingCountUpdate = function (count) {
+                    var pendingCountDisplay = $(".messages span.value");
+
+                    pendingCountDisplay.text(count);
+                    if (count > 0)
+                        pendingCountDisplay.show();
+                    else if (count === 0) {
+                        pendingCountDisplay.hide();
+                    }
+                };
+
+                warningHubProxy.client.receiveImmediateWarning = function (id, message, type, isPersistent) {
+                    showWarningMessage(message, isPersistent);
+                };
+
+                $.getJSON('/api/users/' + userId + '/installations', function (data) {
+                    $.each(data.Installations, function (key, value) {
+                        var defaultPageCookieValue = $.cookie("defaultPage");
+                        if(defaultPageCookieValue == undefined) {
+                            $("#installationsDropDownUL").append('<li><a tabindex="-1" href="/installations/' + value.Id + '/Dashboard" align="left">' + value.Name + '</a></li>');
+                        } else {
+                            $("#installationsDropDownUL").append('<li><a tabindex="-1" href="/installations/' + value.Id + '/' + defaultPageCookieValue + '" align="left">' + value.Name + '</a></li>');
+                        }
+                    });
+
+                    var url = window.location.pathname;
+                    var pathComponents = url.split('http://greencom.azurewebsites.net/');
+
+                    var linkInstallation = $('a[href*="/installations/' + installationId + '/Dashboard"]');
+                    linkInstallation.parent().addClass('active');
+
+                    $("#linkHome").attr("href", '/installations/' + installationId + '/Dashboard');
+                    $("#linkComfort").attr("href", '/installations/' + installationId + '/Comfort');
+                    $("#linkSecurity").attr("href", '/installations/' + installationId + '/Security');
+                    $("#linkControl").attr("href", '/installations/' + installationId + '/HomeAutomation');
+
+                    var linkMenu = $('a[href*="' + pathComponents[2] + '/' + pathComponents[3] + '"]');
+                    linkMenu.parent().addClass('active');
+                });
+
+                $.getJSON('/api/users/' + userId + '/warnings/active', function (data) {
+                    $.each(data.Warnings, function (key, value) {
+
+                        var dateWarningShowed = $.cookie('showedWarning' + value.Id + 'user' + userId);
+
+                        var showWarning = false;
+                        if (dateWarningShowed == undefined) showWarning = true;
+                        else {
+                            if (moment().diff(dateWarningShowed, 'days') > 0) showWarning = true;
+            }
+
+                        console.log(showWarning);
+
+                        if (showWarning) {
+                            showWarningMessage(value.Message, value.IsPersistent);
+                            $.cookie('showedWarning' + value.Id + 'user' + userId, moment(), { path: '/' });
+                        }
+                    });
+                });
+            };
+
+            $('ul li a').click(function () {
+                $('.clicked').removeClass('clicked');
+                clearTimeout(timer);
+                $(this).parent().addClass('clicked');
+                timer = setTimeout(function () {
+                    $('.clicked').removeClass('clicked');
+                }, 5000);
+            });
+
+            $(document).mouseup(function (e) {
+                var container = $('.clicked');
+
+                if (!container.is(e.target)) {
+                    $('.clicked').removeClass('clicked');
+                    clearTimeout(timer);
+                }
+            });
+        });
+
+        function showWarningMessage(message, isPersistent) {
+            $(".slide-message").text(message);
+
+            setTimeout(
+                function () {
+                    $(".slide-message").animate({ "right": 0 }, 500);
+                }
+            , 500);
+
+            $(".slide-message").click(function () {
+                $(".slide-message").animate({ "right": -250 }, 500);
+            });
+
+            if (!isPersistent) {
+                setTimeout(
+                    function () {
+                        $(".slide-message").animate({ "right": -250 }, 500);
+                    }
+                , 5000);
+            }
+        };
+    </script>
+
+    <script type="text/javascript">
+        $('.login a').click(function () {
+            $('.clicked').removeClass('clicked'); 
+            clearTimeout(timer);
+            $(this).parent().addClass('clicked');
+            timer = setTimeout(function () {
+                $('.clicked').removeClass('clicked');
+            }, 3000);
+        });
+    </script>
+
+</body>
+
+
+<!-- Mirrored from greencom.azurewebsites.net/api/metadata?xsd=1 by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 23 May 2016 09:42:56 GMT -->
+</html>

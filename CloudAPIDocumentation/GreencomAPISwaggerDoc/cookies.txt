@@ -1,0 +1,6 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+greencom.azurewebsites.net	TRUE	/	FALSE	1999999999	ss-pid	0bpZxOfRY1dX6uD2I7xZ
+greencom.azurewebsites.net	TRUE	/	FALSE	1999999999	ss-id	kckcK201XfuOZmEKPttX
+greencom.azurewebsites.net	TRUE	/	FALSE	1999999999	ARRAffinity	6c8eebd5e207478a293476963d37518b2cf47012d3bb815fce17514328a46a6c
+
