@@ -205,5 +205,11 @@ public interface LocalDataStorage {
 	 * @return false - otherwise
 	 */
 	boolean exists(String collection, String id);
-
+	/*
+	 * 
+	 * drop collection
+	 * 
+	 * 
+	 */
+	 void removeDB(String collection);
 }

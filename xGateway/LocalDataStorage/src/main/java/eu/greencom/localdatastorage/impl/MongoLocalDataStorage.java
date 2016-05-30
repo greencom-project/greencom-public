@@ -383,5 +383,13 @@ public class MongoLocalDataStorage implements LocalDataStorage {
 		}
 		return ret;
 	}
+	
+	@Override
+	public void removeDB(String collection) {
+		DBCollection c = database.getCollection(collection);
+		if (c != null) {
+			c.drop();
+		}
+	}
 
 }
