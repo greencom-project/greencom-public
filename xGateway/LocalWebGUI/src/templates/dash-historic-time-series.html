@@ -1,0 +1,69 @@
+<div class="panel panel-default">
+	<!-- <div class="panel-heading" ng-if="$ctrl.dashLabel">{{$ctrl.dashLabel}}</div> -->
+	<div class="panel-heading col-md-12">
+		<a class="btn btn-primary btn-success"
+			ng-click="$ctrl.updateRange('sensor_meter_mains')">Mains Meter</a> <a
+			id="ff" class="btn btn-primary btn-success"
+			ng-click="$ctrl.updateRange('sensor_meter_pv')">PV Meter</a> <a
+			class="btn btn-primary btn-success"
+			ng-click="$ctrl.updateRange('sensor_meter_grid')">Grid Meter</a>
+			<a class="btn btn-primary btn-success"
+			ng-click="$ctrl.updateRange('sensor_meter_akku')">Battery Akku</a>
+			<a class="btn btn-primary btn-success"
+			ng-click="$ctrl.updateRange('sensor_battery_soc')">Battery SOC</a>
+	</div>
+
+
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-12">
+				<nvd3 id="graph" options="$ctrl.dashOptions" data="$ctrl.dashData"></nvd3>
+				<hr />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<strong>Predefined </strong><br />
+				<div class="btn-group" role="group" aria-label="...">
+					<button type="button" class="btn btn-default"
+						ng-click="$ctrl.lastWeek()">Last week</button>
+					<button type="button" class="btn btn-default"
+						ng-click="$ctrl.lastDay()">Last day</button>
+				</div>
+
+			</div>
+			<div class="col-md-1">
+				<br /> <strong>OR</strong>
+			</div>
+			<div class="col-md-4">
+				<label for="fromDate">From: </label>
+				<div class="input-group" name="fromDate">
+					<input type="text" class="form-control" uib-datepicker-popup
+						ng-model="$ctrl.startDate" datepicker-options="$ctrl.dateOptions"
+						is-open="$ctrl.isPickerOpen" ng-click="$ctrl.pickerOpen($event)"
+						close-text="Done" ng-change="$ctrl.updateRange()" /> <span
+						class="input-group-btn">
+						<button type="button" class="btn btn-default"
+							ng-click="$ctrl.pickerOpen($event)">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<label for="toDate">To: </label>
+				<div class="input-group" name="fromDate">
+					<input type="text" class="form-control" uib-datepicker-popup
+						ng-model="$ctrl.endDate" datepicker-options="$ctrl.dateOptions"
+						is-open="$ctrl.isPickerOpen2" ng-click="$ctrl.pickerOpen2($event)"
+						close-text="Done" ng-change="$ctrl.updateRange()" /> <span
+						class="input-group-btn">
+						<button type="button" class="btn btn-default"
+							ng-click="$ctrl.pickerOpen2($event)">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>

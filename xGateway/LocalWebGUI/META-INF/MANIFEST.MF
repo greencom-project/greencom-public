@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: LocalWebGUI
+Bundle-SymbolicName: LocalWebGUI
+Bundle-Version: 0.6.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Service-Component: OSGI-INF/*.xml,
+ OSGI-INF/LocalWebGUI.xml
+Import-Package: javax.servlet;version="3.0.0",
+ javax.servlet.http;version="3.0.0",
+ org.osgi.framework,
+ org.osgi.service.http;version="1.2.1",
+ org.slf4j;version="1.7.5"

@@ -1,0 +1,12 @@
+	<div class="weather_box_oneday">
+		<div ng-if="($ctrl.showDigital == 'true' && $ctrl.showAnalog == 'false')">
+			<ds-widget-clock show-digital theme="$ctrl.theme" digital-format="$ctrl.digitalFormat"></ds-widget-clock>
+		</div>
+		<div ng-if="($ctrl.showAnalog == 'true' && $ctrl.showDigital == 'false')">
+			<ds-widget-clock show-analog theme="$ctrl.theme" digital-format="$ctrl.digitalFormat"></ds-widget-clock>
+		</div>
+		<div ng-if="($ctrl.showDigital == 'true' && $ctrl.showAnalog == 'true')">
+			<ds-widget-clock theme="$ctrl.theme" digital-format="$ctrl.digitalFormat"></ds-widget-clock>
+		</div>
+	</div>
+

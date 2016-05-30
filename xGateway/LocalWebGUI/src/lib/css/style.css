@@ -1,0 +1,233 @@
+/* make sidebar nav vertical */
+.nav_link_center {
+	margin: 10 50;
+	text-align: center;
+}
+
+.panel-default>.panel-heading {
+	background-color: transparent;
+	text-align: center;
+	color: black;
+	font-weight: bold;
+	font-size: 150%;
+	height: 50px
+}
+
+.home_box {
+	width: 300px;
+	height: 400px;
+	text-align: center;
+}
+
+.home_box_battery {
+	width: 450px;
+	height: 400px;
+	text-align: center;
+}
+
+.home_box_warning {
+	width: 900px;
+	height: 300px;
+	text-align: center;
+}
+
+.home_box_weather {
+	width: 450px;
+	height: 300px;
+	text-align: center;
+}
+
+.weather_small_forecast_box {
+	width: 120px;
+	height: 110px;
+	text-align: center;
+}
+
+}
+.weather_big_forecast_box {
+	width: 140px;
+	height: 220px;
+	text-align: center;
+}
+
+.weather_forecast_small {
+	width: 440px;
+	height: 140px;
+	text-align: center;
+}
+
+.weather_forecast_big {
+	width: 560px;
+	height: 200px;
+}
+
+/*right navigation*/
+.weather_box_oneday {
+	width: 200px;
+	height: 80px;
+	text-align: center;
+}
+
+.weather_today {
+	width: 320px;
+	height: 200px;
+}
+
+.weather_box_oneday_big {
+	width: 300px;
+	height: 400px;
+	text-align: center;
+}
+
+.battery_size {
+	width: 245px;
+	height: 85px;
+	border-radius: 10px;
+	padding: 0px;
+	text-align: center;
+}
+
+.battery {
+	position: relative;
+	width: 250px;
+	height: 90px;
+	border: 3px solid #000;
+	border-radius: 10px;
+	padding: 0px;
+	text-align: center;
+	/*-webkit-transform: scale(0.5);*/
+	/*transform: translateY(-50%);*/
+}
+
+.battery:before {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 50%;
+	right: -15px;
+	margin-top: -14px;
+	width: 45px;
+	height: 30px;
+	background: #000;
+	clip: rect(0, 48px, 48px, 31.2px);
+}
+
+.battery_text {
+	position: relative;
+	top: 40%;
+	color: black;
+}
+
+.battery_text_measure {
+	margin-top: -20px;
+}
+
+.text_value {
+	text-align: center;
+	color: black;
+	font-weight: bold;
+	font-size: 150%;
+}
+
+.text_value_recom {
+	text-align: center;
+	color: black;
+	font-weight: bold;
+	font-family: sans-serif;
+	font-style: italic;
+	font-size: 120%;
+}
+
+.text_value_condition {
+	text-align: center;
+	color: black;
+	font-weight: bold;
+	font-size: 150%;
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+
+/* for moving whole battery*/
+.battery_template_div {
+	/*width: 100%; */
+	/*margin: 200 80;*/
+	padding-top: -80px;
+	/*  border-style: dashed;
+*/
+	height: 100px;
+	width: 280px;
+	text-align: center;
+	margin-top: 60px;
+	margin-left: 80px;
+}
+
+/*logo place*/
+.logo_place {
+	margin: 0 20;
+}
+
+/* Hide for mobile, show later */
+.sidebar {
+	display: none;
+}
+
+@media ( min-width : 768px) {
+	.sidebar {
+		position: fixed;
+		top: 0px;
+		left: 0;
+		bottom: 0;
+		z-index: 1000;
+		display: inline-block;
+		height: auto;
+		background-color: #F5F7E1;
+		padding: 50px 0px 0px;
+		width: 158px;
+	}
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+.nav-sidebar>li>a {
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	text-align: center;
+}
+
+.nav-sidebar>.active>a {
+	background-color: #E0E68C;
+}
+
+.nav-sidebar>li>a:hover, .nav-sidebar>li>a:focus {
+	color: #E0E68C;
+	background-color: #E0E68C;
+}
+
+body {
+	padding-top: 80px;
+}
+
+/* removing border line*/
+.navbar-default {
+	border-color: transparent;
+}
+
+.smartplug_picture {
+	margin-bottom: 20px;
+}
+
+.toggle_button_label {
+	text-align: center;
+	background-color: #F5F7E1;
+	color: black;
+	font-weight: bold;
+	font-size: 150%;
+}

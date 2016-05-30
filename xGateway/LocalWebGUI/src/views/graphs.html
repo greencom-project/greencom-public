@@ -1,0 +1,14 @@
+
+<div class="panel-group" id="accordion">
+	<div class="panel panel-default col-md-12">
+		
+		<div class="col-md-12" ng-controller="greencomCtrl as ctrl"
+			sensor="sensor_meter_mains">
+			<dash-historic-time-series dash-data="fillLevels" dash-min-y="0"
+				dash-max-y="100" dash-label="'Mains Meter'"
+				dash-x-label="'Time [s] UTC'" dash-y-label="'W'"
+				on-update="ctrl.onUpdateRange(sensor, startDate, endDate)"></dash-historic-time-series>
+		</div>
+
+	</div>
+</div>

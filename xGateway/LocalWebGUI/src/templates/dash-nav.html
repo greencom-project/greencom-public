@@ -1,0 +1,73 @@
+
+
+<nav class="navbar navbar-default navbar-fixed-top "
+	style="background-color: #F5F7E1; height: 60px; width: auto">
+	<div class="container-fluid">
+
+		<div class="navbar-header ">
+			<button type="button" class="navbar-toggle"
+				ng-init="navCollapsed = true"
+				ng-click="navCollapsed = !navCollapsed">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<div class="logo logo_place">
+				<a href="#/home"><img HEIGHT="50" WIDTH="300"
+					src="pics/gc-logo.png"></a>
+			</div>
+			<div class="navbar-collapse collapse"
+				ng-class="!navCollapsed && 'in'">
+				<ul class="nav collapse" ng-class="!navCollapsed && 'in'">
+					<li><a class="toggle_button_label" href="#/home"> home </a></li>
+					<li><a class="toggle_button_label" href="#/graphs"> graphs</a></li>
+					<li><a class="toggle_button_label" href="#/control">
+							control </a></li>
+				</ul>
+			</div>
+		</div>
+		<!--  <div class="navbar-collapse collapse"  ng-class="!navCollapsed && 'in'" >
+        <ul class="nav navbar-nav">
+          <li><a href="#/home"> </a></li>
+          <li><a href="#/graphs"></a></li>
+          <li><a href="#/control"></a></li>
+      </ul>
+ -->
+
+		<ul class="nav navbar-nav navbar-right hidden-xs">
+			<li>
+				<div ng-controller="dashWeatherController">
+					<dash-weathersmalltoday content='place'
+						ng-init="findWeather('Brussels','BL')"></dash-weathersmalltoday>
+				</div>
+			</li>
+			<li><dash-clock-day theme="'light'"
+					digital-format="'EEEE MMMM d,yyyy hh:mm:ss'" show-digital="'true'"
+					show-analog="'false'"></dash-clock-day></li>
+		</ul>
+		<!-- </div> -->
+
+
+	</div>
+</nav>
+
+<!-- Left Vertical Nav Bar-->
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-2 col-md-2 sidebar ng-cloak">
+
+			<ul class="nav nav-sidebar ng-cloak ">
+				<li ng-class="{ active: isActive('/home') }"><a href="#/home"><img
+						HEIGHT="150" WIDTH="150" src="pics/home2.png"></a></li>
+				<li ng-class="{ active: isActive('/graphs') }"><a
+					href="#/graphs"><img HEIGHT="150" WIDTH="150"
+						src="pics/graphs2.png"></a></li>
+				<li ng-class="{ active: isActive('/control') }"><a
+					href="#/control"><img HEIGHT="150" WIDTH="150"
+						src="pics/control2.png"></a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+

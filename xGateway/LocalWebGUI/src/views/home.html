@@ -1,0 +1,87 @@
+<!-- Text monitor for Grid (parameter to call API should be passed within init()) -->
+<div class="col-md-10 home_box panel panel-default"
+	ng-controller="dashTextMeasureController as ctrl">
+	<h2>Grid</h2>
+	<img HEIGHT="150" WIDTH="150" src="pics/grid2.png">
+	<dash-text-measure value="value" dash-unit="'W'" dash-id="'users'"
+		ng-init="init('sensor_meter_grid')"></dash-text-measure>
+	<div class="col-md-12 panel-body text_value_recom">
+		<!--  This will return the description of situation -->
+		<p>{{greencom_text}}
+		<p>
+	</div>
+</div>
+
+<!-- Text monitor for Load (parameter to call API should be passed within init()) -->
+<div class="col-md-10 home_box panel panel-default"
+	ng-controller="dashTextMeasureController as ctrl">
+	<h2>Your Consumption</h2>
+	<img HEIGHT="150" WIDTH="150" src="pics/consumption3.png">
+	<dash-text-measure value="value" dash-unit="'W'" dash-id="'users'"
+		ng-init="init('sensor_meter_mains')"></dash-text-measure>
+	<div class="col-md-12 panel-body text_value_recom">
+		<!--  This will return the description of situation -->
+		<p>{{greencom_text}}
+		<p>
+	</div>
+</div>
+
+<!-- Text monitor for PV (parameter to call API should be passed within init()) -->
+<div class="col-md-10 home_box panel panel-default"
+	ng-controller="dashTextMeasureController as ctrl">
+	<h2>Your Production</h2>
+	<img HEIGHT="150" WIDTH="150" src="pics/pv2.png">
+	<dash-text-measure value="value" dash-unit="'W'" dash-id="'users'"
+		ng-init="init('sensor_meter_pv')"></dash-text-measure>
+	<div class="col-md-12 panel-body text_value_recom">
+		<!--  This will return the description of situation -->
+		<p>{{greencom_text}}
+		<p>
+	</div>
+</div>
+
+<!-- Battery Widget for Battery SOC - Parameter to call API is inside the js file -->
+<div class="col-md-10 home_box_battery panel panel-default"
+	ng-controller="dashTextMeasureController as ctrl">
+	<h2>Battery Status</h2>
+	<div class="battery_template_div"
+		ng-controller="dashBatteryController as ctrl" class="col-md-10">
+		<dash-battery dash-unit="'%'" dash-text-color="'black'" value="value"
+			type="type"></dash-battery>
+	</div>
+	<!-- Text monitor for Battery (parameter to call API should be passed within init()) -->
+	<dash-text-measure value="value" dash-unit="'W'" dash-id="'users'"
+		ng-init="init('sensor_meter_akku')"></dash-text-measure>
+	<div class="col-md-12 panel-body text_value_recom">
+	    <!--  This will return the description of situation -->
+		<p>{{greencom_text}}
+		<p>
+	</div>
+</div>
+
+<!-- Text panel for GreenCom condition and recommendation -->
+<div class="col-md-10 home_box_warning panel panel-default"
+	ng-controller="dashGreencomConditionController">
+	<h2>Current Situation</h2>
+	<dash-greencom-condition result="result" icon="icon"></dash-greencom-condition>
+</div>
+
+<!-- Small weather forecast widget -->
+<div class="col-md-10 home_box_weather panel panel-default">
+	<h2>Weather Forecast</h2>
+	<div class="col-md-12" ng-controller="dashWeatherController">
+		<div class="weather_forecast_small"
+			ng-init="findWeather('Brussels','BL')">
+			<div class="col-md-3"
+				ng-repeat="forecast in place.item.forecast | limitTo: 3">
+				<dash-weathersmallforecast content='forecast'></dash-weathersmallforecast>
+			</div>
+			<div class="col-md-12 panel-body text_value_recom">
+				<!--  This will return the description of situation -->
+				<p>{{greencom_forcast_text}}
+				<p>
+			</div>
+		</div>
+	</div>
+</div>
+

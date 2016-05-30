@@ -1,0 +1,7 @@
+<div class="weather_box_oneday">
+	
+		<B style="font-size:150%;">{{$ctrl.content.location.city}} {{$ctrl.content.item.condition.temp+'°'}}</B>
+		<p ><i class="wi wi-yahoo-{{$ctrl.content.item.condition.code}}" ng-if="+'wi wi-yahoo-'+'$ctrl.content.item.condition.code'" style="font-size:160%;"></i> 
+		{{$ctrl.item.condition.text}}</p>
+	
+</div>
